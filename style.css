@@ -42,3 +42,9 @@ html.auto-playing{overflow-anchor:none}
 .auto-playing body>.year-rail{position:fixed;left:0;right:0;top:var(--header);opacity:0;visibility:hidden;pointer-events:none}
 .auto-playing.auto-rail-visible:not(.viewing-expertise) body>.year-rail{opacity:1;visibility:visible;pointer-events:auto}
 .scene-plate,.scene-art .parallax-far,.scene-art .parallax-mid{transform:none}
+
+/* Native chapter stops keep a fast manual fling from skipping the story. */
+html:not(.auto-playing){scroll-snap-type:y mandatory}
+.hero,.chapter,.expertise,footer{scroll-snap-align:start;scroll-snap-stop:always}
+.hero,footer{scroll-margin-top:var(--header)}
+html.auto-playing{scroll-snap-type:none}

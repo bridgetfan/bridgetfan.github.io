@@ -8,7 +8,7 @@ The single-page story moves through undergraduate study in Chengdu, interpreting
 
 ## Experience
 
-- Continuous scenes connected by a changing source of light. Autoplay uses one browser-composited animation at a steady reading pace, rather than a per-frame native-scroll loop. Pausing restores the current visual position to native scrolling. Manual wheel and touch gestures use the browser's own momentum without distance caps or custom easing. Hover feedback never locks playback. Selecting a year pauses autoplay and uses native smooth navigation.
+- Continuous scenes connected by a changing source of light. Autoplay uses one browser-composited animation at a steady reading pace, rather than a per-frame native-scroll loop. Pausing restores the current visual position to native scrolling. Manual wheel and touch gestures use the browser's own momentum, with native CSS chapter stops to prevent a fast fling from skipping multiple chapters. Oversized chapters remain scrollable within their full height. Single wheel commands larger than a viewport are normalized to a short native smooth scroll; normal wheel input and touch gestures retain native movement. Hover feedback never locks playback. Selecting a year pauses autoplay and uses native smooth navigation.
 - Characters contained within each scene, with separate space for the illustrations and text.
 - Hover and keyboard-focus feedback on scene details; click or tap to read more.
 - A compact capability overview, with details in a desktop side panel or mobile bottom sheet.

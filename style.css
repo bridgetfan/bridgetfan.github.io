@@ -42,3 +42,7 @@ html.auto-playing{overflow-anchor:none}
 .auto-playing body>.year-rail{position:fixed;left:0;right:0;top:var(--header);opacity:0;visibility:hidden;pointer-events:none}
 .auto-playing.auto-rail-visible:not(.viewing-expertise) body>.year-rail{opacity:1;visibility:visible;pointer-events:auto}
 .scene-plate,.scene-art .parallax-far,.scene-art .parallax-mid{transform:none}
+
+/* Claim vertical story gestures before the browser starts native inertia.
+   Horizontal year navigation and pinch zoom remain browser gestures; dialogs and music retain native scrolling. */
+main,footer{touch-action:pan-x pinch-zoom}

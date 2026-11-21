@@ -1,4 +1,4 @@
-/* Manual movement follows input only: no release glide, idle animation or scroll correction. */
+/* Manual movement follows input only. Native vertical touch inertia is disabled on the story surface in CSS. */
 function installNativeReadingInput({onInput,isBlocked,getStops}){
   const controls=target=>target.closest('#music-player,dialog,input,textarea,select,[contenteditable="true"]');
   let wheel=null,touch=null,layoutWidth=innerWidth;
@@ -19,16 +19,22 @@ function installNativeReadingInput({onInput,isBlocked,getStops}){
     onInput();touch=null;
     const pixels=event.deltaY*(event.deltaMode===1?18:event.deltaMode===2?innerHeight:1);
     const now=event.timeStamp,sign=Math.sign(pixels);
-    if(!wheel||now-wheel.at>280||wheel.sign!==sign)wheel={...bounds(scrollY),target:scrollY,at:now,sign};
+    if(!wheel||now-wheel.at>420||wheel.sign!==sign){
+      const range=bounds(scrollY),travel=innerHeight*.7;
+      // A forwarded mobile fling is a stream of wheel events, not a TouchEvent.
+      // Keep its entire inertial tail inside one reading-sized movement.
+      wheel={min:Math.max(range.min,scrollY-travel),max:Math.min(range.max,scrollY+travel),target:scrollY,at:now-80,sign};
+    }
+    // Bound both event size and event rate; a large forwarded delta must not teleport.
+    const elapsed=Math.max(8,Math.min(80,now-wheel.at));
+    const step=sign*Math.min(Math.abs(pixels)*.8,innerHeight*.08,innerHeight*.9*elapsed/1000);
     wheel.at=now;
-    // Normalize oversized remote commands without scheduling movement after the event.
-    const step=sign*Math.min(Math.abs(pixels),innerHeight*.22);
     wheel.target=clamp(wheel.target+step,wheel);
     if(event.cancelable){event.preventDefault();window.scrollTo({top:wheel.target,behavior:'instant'});}
   },{passive:false});
   addEventListener('touchstart',event=>{
     reset();
-    if(event.touches.length!==1||isBlocked()||controls(event.target)||event.target.closest('.site-header'))return;
+    if(event.touches.length!==1||isBlocked()||controls(event.target))return;
     onInput();stopNativeGlide();
     const p=event.touches[0];
     touch={...bounds(scrollY),origin:scrollY,x:p.clientX,y:p.clientY,axis:null};
@@ -36,10 +42,10 @@ function installNativeReadingInput({onInput,isBlocked,getStops}){
   addEventListener('touchmove',event=>{
     if(!touch||event.touches.length!==1||isBlocked()){touch=null;return;}
     const p=event.touches[0],dx=p.clientX-touch.x,dy=p.clientY-touch.y;
-    if(!touch.axis&&Math.max(Math.abs(dx),Math.abs(dy))>2)touch.axis=Math.abs(dy)>Math.abs(dx)?'y':'x';
+    if(!touch.axis&&Math.max(Math.abs(dx),Math.abs(dy))>0)touch.axis=Math.abs(dy)>Math.abs(dx)?'y':'x';
     if(touch.axis!=='y')return;
     if(event.cancelable){event.preventDefault();window.scrollTo({top:clamp(touch.origin-dy,touch),behavior:'instant'});}
-  },{passive:false});
+  },{passive:false,capture:true});
   addEventListener('touchend',()=>{
     const wasVertical=touch?.axis==='y';touch=null;
     // The position does not advance at release; this only cancels native inertia.

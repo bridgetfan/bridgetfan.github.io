@@ -28,6 +28,6 @@ The `.nojekyll` file keeps the site as plain static files. No build service, dat
 - `style.css`: layout, colours and animation.
 - `scenes.js`: timeline content, illustration scenes and supporting notes.
 - `app.js`: scrolling, navigation and interactions.
-- `family-character-set.png`: stylised character illustrations used throughout the timeline.
+- `family-cartoon-set.png`: stylised character illustrations used throughout the timeline.
 
 Edit the content in `scenes.js`, then commit the changes to update the site.

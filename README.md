@@ -8,7 +8,7 @@ The single-page story moves through undergraduate study in Chengdu, interpreting
 
 ## Experience
 
-- Continuous, automatically scrolling scenes connected by a changing source of light: star, city window, home, study screen and platform signal. Autoplay moves continuously, slowing to 30 px/s on desktop and 24 px/s on mobile while text is visible, with eased transitions through the illustrations. Hover feedback never locks playback. Manual gestures have bounded travel and momentum to avoid skipping several chapters. Manual scrolling pauses the automatic journey until the reader explicitly resumes. Year navigation jumps directly to the chosen chapter.
+- Continuous scenes connected by a changing source of light. Autoplay uses one browser-composited animation at a steady reading pace, rather than a per-frame native-scroll loop. Pausing restores the current visual position to native scrolling. Manual wheel and touch gestures use the browser's own momentum without distance caps or custom easing. Hover feedback never locks playback. Selecting a year pauses autoplay and uses native smooth navigation.
 - Characters contained within each scene, with separate space for the illustrations and text.
 - Hover and keyboard-focus feedback on scene details; click or tap to read more.
 - A compact capability overview, with details in a desktop side panel or mobile bottom sheet.
@@ -22,7 +22,7 @@ The single-page story moves through undergraduate study in Chengdu, interpreting
 - `index.html`: page structure, illustration symbols and the detail dialog.
 - `scenes.js`: timeline content, illustrated scenes and supporting story details.
 - `app.js`: scene rendering, automatic scrolling, interactions and capability details.
-- `reading-scroll.js`: bounded manual wheel and touch gestures.
+- `reading-scroll.js`: passive input listeners that hand playback back to native scrolling.
 - `story-light.js`: scene-specific light motifs and the short moving light trail between scenes.
 - `music-player.js`: user-controlled audio playback and the floating player.
 - `inspired.mp3` and `music-credits.txt`: the instrumental recording and attribution.

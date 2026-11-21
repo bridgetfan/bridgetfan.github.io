@@ -131,7 +131,7 @@ document.querySelector('#auto-toggle').addEventListener('click',()=>{
 document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',event=>{
   const href=link.getAttribute('href'),target=document.getElementById(href.slice(1));if(!target)return;
   event.preventDefault();pauseForInput();clearInteraction();
-  target.scrollIntoView({behavior:reduced.matches?'instant':'smooth',block:'start'});
+  target.scrollIntoView({behavior:'instant',block:'start'});
   history.replaceState(null,'',href);scheduleRender();
 }));
 function tick(){if(autoMotion)scheduleRender();requestAnimationFrame(tick);}

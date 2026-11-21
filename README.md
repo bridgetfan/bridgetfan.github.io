@@ -2,32 +2,29 @@
 
 A personal website about my path into platform engineering, with a specialism in HashiCorp Vault.
 
-The single-page timeline covers undergraduate study in Chengdu, postgraduate interpreting study in Australia, industry experience, family life, a return to university for cybersecurity, and engineering work at Macquarie Group and Wipro / Optus.
+Website: https://bridgetfan.github.io/
 
-## Website
+The single-page story moves through undergraduate study in Chengdu, interpreting study in Australia, industry experience, family life, cybersecurity study and engineering work at Macquarie Group and Wipro / Optus.
 
-https://bridgetfan.github.io/
+## Experience
 
-This is a static website built with HTML, CSS, JavaScript and SVG. It includes a continuous illustrated timeline, a capability-focused toolbox, automatic scrolling, hover notes, mobile interactions and support for reduced-motion preferences.
+- Continuous, automatically scrolling scenes with manual scrolling and a year navigation.
+- Characters contained within each scene, with separate space for the illustrations and text.
+- Hover and keyboard-focus feedback on scene details; click or tap to read more.
+- A compact capability overview, with details in a desktop side panel or mobile bottom sheet.
+- Native modal focus handling, Escape dismissal and restoration of the original reading position.
+- Reduced-motion preferences disable automatic scrolling and animated effects.
 
-Search indexing is discouraged with a `noindex, nofollow` meta tag. The published website and this repository remain public; the tag is not access control.
+## Files
 
-## Publish with GitHub Pages
+- `index.html`: page structure, illustration symbols and the detail dialog.
+- `scenes.js`: timeline content, illustrated scenes and supporting story details.
+- `app.js`: scene rendering, automatic scrolling, interactions and capability details.
+- `style.css`: responsive layout, typography and animation.
+- `family-cartoon-set.png`: family character artwork and the study portrait.
+- `bridget-professional.png`: standing and presenting character poses.
+- `geist-*.ttf`: locally served Geist and Geist Mono fonts, with their license files alongside.
 
-1. Create a public repository named `bridgetfan.github.io`.
-2. Put the website files at the root of the `main` branch.
-3. Open **Settings → Pages**.
-4. Choose **Deploy from a branch**, then **main** and **/ (root)**, and save.
-5. Open the website URL reported by GitHub Pages once deployment completes.
+GitHub Pages serves the repository root from `main`. No build, database or application server is required. The `.nojekyll` file keeps the website as static files.
 
-The `.nojekyll` file keeps the site as plain static files. No build service, database or server installation is required. Google Fonts is used for typography, with local system-font fallbacks.
-
-## Main files
-
-- `index.html`: page structure and shared illustrations.
-- `style.css`: layout, colours and animation.
-- `scenes.js`: timeline content, illustration scenes and supporting notes.
-- `app.js`: scrolling, navigation and interactions.
-- `family-cartoon-set.png`: stylised character illustrations used throughout the timeline.
-
-Edit the content in `scenes.js`, then commit the changes to update the site.
+Search indexing is discouraged through a `noindex, nofollow` meta tag. The website and source repository remain public; this tag is not access control.

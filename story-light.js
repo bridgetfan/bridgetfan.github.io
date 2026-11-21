@@ -42,7 +42,8 @@ function createStoryLight(journey, chapters) {
   const head=layer.querySelector('.story-light-head');
   const fade=layer.querySelector('#story-light-fade');
   const smooth=t=>t*t*(3-2*t);
-  let lastWidth=0,lastHeight=0,lastColor='';
+  let lastWidth=0,lastHeight=0,lastColor='',cachedAnchors=null,lastPath='';
+  const lastLevels=[];
   function anchor(chapter,base) {
     const r=chapter.querySelector('[data-light-anchor]').getBoundingClientRect();
     return {x:r.left+r.width/2-base.left,y:r.top+r.height/2-base.top,color:lightScenes[chapter.id].color};
@@ -59,11 +60,16 @@ function createStoryLight(journey, chapters) {
     return {x,y,color};
   }
   return {
-    update() {
-      const base=journey.getBoundingClientRect();
-      const width=journey.clientWidth,height=journey.offsetHeight;
-      if(width!==lastWidth||height!==lastHeight){layer.setAttribute('viewBox',`0 0 ${width} ${height}`);lastWidth=width;lastHeight=height;}
-      const anchors=chapters.map(c=>anchor(c,base));
+    invalidate(){cachedAnchors=null;},
+    update(base=journey.getBoundingClientRect()) {
+      if(!cachedAnchors){
+        lastWidth=journey.clientWidth;lastHeight=journey.offsetHeight;
+        layer.setAttribute('viewBox',`0 0 ${lastWidth} ${lastHeight}`);
+        cachedAnchors=chapters.map(c=>anchor(c,base));
+        chapters.forEach(c=>c.style.setProperty('--chapter-light',lightScenes[c.id].color.join(',')));
+      }
+      const width=lastWidth,height=lastHeight;
+      const anchors=cachedAnchors;
       const first=anchors[0],last=anchors[anchors.length-1];
       const points=[{x:first.x-35,y:12,color:first.color},...anchors,{x:last.x+35,y:height-20,color:last.color}];
       const y=Math.max(12,Math.min(height-20,innerHeight*.53-base.top));
@@ -75,7 +81,8 @@ function createStoryLight(journey, chapters) {
         const q=point(start+(y-start)*n/24,points,corridor);
         trail.push(`${n?'L':'M'}${q.x.toFixed(1)} ${q.y.toFixed(1)}`);
       }
-      tail.setAttribute('d',trail.join(' '));soft.setAttribute('d',trail.join(' '));
+      const path=trail.join(' ');
+      if(path!==lastPath){tail.setAttribute('d',path);soft.setAttribute('d',path);lastPath=path;}
       fade.setAttribute('x1',point(start,points,corridor).x);fade.setAttribute('y1',start);
       fade.setAttribute('x2',p.x);fade.setAttribute('y2',p.y);
       head.setAttribute('transform',`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`);
@@ -85,8 +92,8 @@ function createStoryLight(journey, chapters) {
       chapters.forEach((c,i)=>{
         const distance=Math.abs(anchors[i].y-y);
         const level=Math.max(.06,1-distance/(innerHeight*.86));
-        c.style.setProperty('--light-level',level.toFixed(3));
-        c.style.setProperty('--chapter-light',lightScenes[c.id].color.join(','));
+        const value=level.toFixed(2);
+        if(lastLevels[i]!==value){c.style.setProperty('--light-level',value);lastLevels[i]=value;}
         c.classList.toggle('light-reached',y>=anchors[i].y-45);
       });
     }

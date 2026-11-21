@@ -22,17 +22,17 @@ const chapterScenes=[
     "year": "2010",
     "nav": "2010",
     "location": "A NEW COUNTRY · AUSTRALIA",
-    "title": "Precision across\nlanguages and contexts.",
-    "description": "A master’s in interpreting brought me to Australia in 2010. The discipline sharpened how I listen, interpret context and communicate complex information clearly — habits I continue to bring to engineering work.",
+    "title": "A new country.\nA broader perspective.",
+    "description": "I moved to Australia in 2010 to pursue a master’s in interpreting. Through study and placement experiences, I gained a deeper understanding of Australian society, culture and working life, laying the foundations for my professional career here.",
     "tags": [
-      "Master’s in interpreting",
-      "Clear technical communication"
+      "Postgraduate study",
+      "Life & work in Australia"
     ],
-    "caption": "LANGUAGE / CONTEXT / CLARITY",
+    "caption": "AUSTRALIA / STUDY / A NEW BEGINNING",
     "accent": "#8ebcfe",
     "detail": "australia",
     "cast": "solo",
-    "svg": "\n<g class=\"parallax-far\"><path d=\"M139 355C303 168 568 173 763 355M144 367h624\" fill=\"none\" stroke=\"#4b8da4\" stroke-width=\"5\"/><path d=\"M170 342v67m573-67v67m-524-91v49m64-96v96m64-126v126m65-135v135m65-119v119m64-96v96m65-58v58\" stroke=\"#39718a\" stroke-width=\"2\"/><path d=\"M162 323h24v87h-24zm565-4h26v91h-26z\" fill=\"#143448\" stroke=\"#58a9b7\"/><g transform=\"translate(300 210)\"><path d=\"m0 130 0-130 65 -13 0 130z\" fill=\"url(#glass)\" stroke=\"#458da3\" stroke-width=\"1.5\"/><path d=\"M10 8h45v112H10z\" fill=\"url(#windows)\"/></g><g transform=\"translate(378 176)\"><path d=\"m0 164 0-164 62 -13 0 164z\" fill=\"url(#glass)\" stroke=\"#458da3\" stroke-width=\"1.5\"/><path d=\"M10 8h42v146H10z\" fill=\"url(#windows)\"/></g><g transform=\"translate(455 235)\"><path d=\"m0 107 0-107 55 -13 0 107z\" fill=\"url(#glass)\" stroke=\"#458da3\" stroke-width=\"1.5\"/><path d=\"M10 8h35v89H10z\" fill=\"url(#windows)\"/></g></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"australia\" aria-label=\"A new chapter in Australia\"><title>A new chapter in Australia</title><g class=\"parallax-mid\"><path d=\"M567 478h303l-14 17H553z\" fill=\"#214b5a\" stroke=\"#7bcdd9\" stroke-width=\"2\"/><path d=\"m580 477 82-111c-4 42 9 75 44 111z\" fill=\"#184052\" stroke=\"#a4dde6\" stroke-width=\"2\"/><path d=\"m656 477 58-159c-2 74 18 122 62 159z\" fill=\"#21495d\" stroke=\"#a4dde6\" stroke-width=\"2\"/><path d=\"m736 477 56-114c-1 49 21 85 50 114z\" fill=\"#2c5063\" stroke=\"#a4dde6\" stroke-width=\"2\"/><path d=\"M526 512h373m-331 17h299m-280 17h213\" stroke=\"url(#water)\" stroke-width=\"5\"/></g></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"australia\" aria-label=\"Studying interpreting overseas\"><title>Studying interpreting overseas</title><g class=\"plane-flight\" transform=\"translate(680 130) rotate(-12)\"><path d=\"m0 30 71-12 42-41 13 3-24 34 43 2 16-11 8 3-10 20-155 18z\" fill=\"#83c9dc\" stroke=\"#bee9f3\" stroke-width=\"2\"/><path d=\"m55 24-28-37 11-4 51 34\" fill=\"#38617c\" stroke=\"#bee9f3\" stroke-width=\"2\"/></g></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"interpreting\" aria-label=\"A master’s in interpreting\"><title>A master’s in interpreting</title><g transform=\"translate(222 434)\"><rect width=\"130\" height=\"77\" rx=\"13\" fill=\"#122e46\" stroke=\"#729fdf\" stroke-width=\"2\"/><path d=\"m30 77 0 20 25-20\" fill=\"#122e46\" stroke=\"#729fdf\" stroke-width=\"2\"/><text x=\"25\" y=\"49\" fill=\"#c7dcf4\" font-size=\"26\" font-family=\"sans-serif\">文 / A</text></g></g>\n"
+    "svg": "\n<g class=\"parallax-far\"><path d=\"M139 355C303 168 568 173 763 355M144 367h624\" fill=\"none\" stroke=\"#4b8da4\" stroke-width=\"5\"/><path d=\"M170 342v67m573-67v67m-524-91v49m64-96v96m64-126v126m65-135v135m65-119v119m64-96v96m65-58v58\" stroke=\"#39718a\" stroke-width=\"2\"/><path d=\"M162 323h24v87h-24zm565-4h26v91h-26z\" fill=\"#143448\" stroke=\"#58a9b7\"/><g transform=\"translate(300 210)\"><path d=\"m0 130 0-130 65 -13 0 130z\" fill=\"url(#glass)\" stroke=\"#458da3\" stroke-width=\"1.5\"/><path d=\"M10 8h45v112H10z\" fill=\"url(#windows)\"/></g><g transform=\"translate(378 176)\"><path d=\"m0 164 0-164 62 -13 0 164z\" fill=\"url(#glass)\" stroke=\"#458da3\" stroke-width=\"1.5\"/><path d=\"M10 8h42v146H10z\" fill=\"url(#windows)\"/></g><g transform=\"translate(455 235)\"><path d=\"m0 107 0-107 55 -13 0 107z\" fill=\"url(#glass)\" stroke=\"#458da3\" stroke-width=\"1.5\"/><path d=\"M10 8h35v89H10z\" fill=\"url(#windows)\"/></g></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"australia\" aria-label=\"A new chapter in Australia\"><title>A new chapter in Australia</title><g class=\"parallax-mid\"><path d=\"M567 478h303l-14 17H553z\" fill=\"#214b5a\" stroke=\"#7bcdd9\" stroke-width=\"2\"/><path d=\"m580 477 82-111c-4 42 9 75 44 111z\" fill=\"#184052\" stroke=\"#a4dde6\" stroke-width=\"2\"/><path d=\"m656 477 58-159c-2 74 18 122 62 159z\" fill=\"#21495d\" stroke=\"#a4dde6\" stroke-width=\"2\"/><path d=\"m736 477 56-114c-1 49 21 85 50 114z\" fill=\"#2c5063\" stroke=\"#a4dde6\" stroke-width=\"2\"/><path d=\"M526 512h373m-331 17h299m-280 17h213\" stroke=\"url(#water)\" stroke-width=\"5\"/></g></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"australia\" aria-label=\"Arriving in Australia for postgraduate study\"><title>Arriving in Australia for postgraduate study</title><g class=\"plane-flight\" transform=\"translate(680 130) rotate(-12)\"><path d=\"m0 30 71-12 42-41 13 3-24 34 43 2 16-11 8 3-10 20-155 18z\" fill=\"#83c9dc\" stroke=\"#bee9f3\" stroke-width=\"2\"/><path d=\"m55 24-28-37 11-4 51 34\" fill=\"#38617c\" stroke=\"#bee9f3\" stroke-width=\"2\"/></g></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"interpreting\" aria-label=\"A master’s in interpreting\"><title>A master’s in interpreting</title><g transform=\"translate(222 434)\"><rect width=\"130\" height=\"77\" rx=\"13\" fill=\"#122e46\" stroke=\"#729fdf\" stroke-width=\"2\"/><path d=\"m30 77 0 20 25-20\" fill=\"#122e46\" stroke=\"#729fdf\" stroke-width=\"2\"/><text x=\"25\" y=\"49\" fill=\"#c7dcf4\" font-size=\"26\" font-family=\"sans-serif\">STUDY</text></g></g>\n"
   },
   {
     "id": "work",
@@ -184,13 +184,13 @@ const storyDetails={
   },
   "australia": {
     "label": "2010 · AUSTRALIA",
-    "title": "Working across contexts.",
-    "body": "<p>I moved to Australia in 2010 to study a master’s in interpreting.</p><p>Interpreting depends on accurate listening, contextual judgement and clear communication. That training remains part of the perspective I bring to complex technical work.</p>"
+    "title": "Building a life in Australia.",
+    "body": "<p>I moved to Australia in 2010 to pursue a master’s in interpreting.</p><p>Study and placement experiences helped me understand Australian society, culture and working life in greater depth.</p><p>After graduating, I began my professional career here, starting a sustained chapter in the automotive care products industry.</p>"
   },
   "interpreting": {
     "label": "MASTER’S · INTERPRETING",
-    "title": "Precision in understanding and communication.",
-    "body": "<p>My master’s in interpreting brought me to Australia in 2010.</p><p>The discipline develops a habit of listening carefully, understanding context and conveying meaning precisely — capabilities that remain useful when working across engineering teams and stakeholders.</p>"
+    "title": "Learning beyond the classroom.",
+    "body": "<p>Postgraduate study brought me to Australia in 2010.</p><p>Through study and placement experiences, I became more familiar with the country’s social and cultural landscape and the expectations of its workplaces.</p><p>This period helped me find my footing in a new country and prepared me to begin my professional career in Australia.</p>"
   },
   "work": {
     "label": "AFTER GRADUATION · SEVEN YEARS",

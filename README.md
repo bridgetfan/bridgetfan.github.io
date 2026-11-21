@@ -9,6 +9,7 @@ The single-page story moves through undergraduate study in Chengdu, interpreting
 ## Experience
 
 - Continuous scenes connected by a changing source of light. Autoplay uses one browser-composited animation at a steady reading pace, rather than a per-frame native-scroll loop. Pausing restores the current visual position to native scrolling. Manual input treats the whole wheel-event stream or touch gesture as one movement, bounded by the neighbouring chapter starts. A new finger gesture, direction reversal or wheel pause starts a new movement. Long chapters remain readable with short drags; release does not advance the page. Manual movement follows live input only, with no added glide, timer-driven movement or corrective scroll listener. Hover feedback never locks playback. Selecting a year pauses autoplay and jumps directly to the selected chapter.
+- Scroll rendering reuses measured chapter and light-anchor geometry, refreshing it after font loading or viewport changes. Manual gesture start uses the same cached chapter boundaries.
 - Characters contained within each scene, with separate space for the illustrations and text.
 - Hover and keyboard-focus feedback on scene details; click or tap to read more.
 - A compact capability overview, with details in a desktop side panel or mobile bottom sheet.

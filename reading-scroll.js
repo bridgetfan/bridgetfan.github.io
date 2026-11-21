@@ -1,13 +1,14 @@
 /* Manual movement follows input only: no release glide, idle animation or scroll correction. */
-function installNativeReadingInput({onInput,isBlocked}){
+function installNativeReadingInput({onInput,isBlocked,getStops}){
   const controls=target=>target.closest('#music-player,dialog,input,textarea,select,[contenteditable="true"]');
   let wheel=null,touch=null,layoutWidth=innerWidth;
   const maximum=()=>Math.max(0,document.documentElement.scrollHeight-innerHeight);
   function bounds(origin){
-    const stops=[0,...Array.from(document.querySelectorAll('.chapter,#expertise,footer'),el=>{
+    const measured=getStops?getStops():Array.from(document.querySelectorAll('.chapter,#expertise,footer'),el=>{
       const margin=parseFloat(getComputedStyle(el).scrollMarginTop)||0;
       return Math.max(0,el.getBoundingClientRect().top+scrollY-margin);
-    }),maximum()].sort((a,b)=>a-b);
+    });
+    const stops=[0,...measured,maximum()].sort((a,b)=>a-b);
     return {min:stops.filter(y=>y<origin-24).at(-1)??0,max:stops.find(y=>y>origin+24)??maximum()};
   }
   const clamp=(value,range)=>Math.max(range.min,Math.min(range.max,value));

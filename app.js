@@ -38,10 +38,11 @@ function cast(c) {
   if (c.cast==='family') return eric+aiden+bridget;
   return bridget;
 }
-document.querySelector('#story-chapters').innerHTML = chapterScenes.map(c=>`<section id="${c.id}" class="chapter" aria-labelledby="title-${c.id}" style="--accent:${c.accent}"><div class="chapter-copy"><span class="chapter-date">${c.year}</span><span class="chapter-location">${c.location}</span><h2 id="title-${c.id}">${c.title.split('\n').join('<br> ')}</h2><p>${c.description}</p><div class="chapter-tags">${c.tags.map(t=>`<button data-detail="${c.detail}" aria-haspopup="dialog">${t}</button>`).join('')}</div></div><div class="chapter-visual ${c.cast==='study'?'study-visual':''}"><div class="scene-plate"><svg class="scene-art" viewBox="150 80 800 ${c.cast==='study'?650:570}" role="group" aria-label="${c.location}">${c.svg}</svg></div><div class="scene-response" aria-hidden="true">Hover to explore · Tap for the story</div><div class="scene-cast ${c.cast}">${cast(c)}</div><div class="scene-caption">${c.caption}</div></div></section>`).join('');
+document.querySelector('#story-chapters').innerHTML = chapterScenes.map(c=>`<section id="${c.id}" class="chapter" aria-labelledby="title-${c.id}" style="--accent:${c.accent}"><div class="chapter-copy"><span class="chapter-date">${c.year}</span><span class="chapter-location">${c.location}</span><h2 id="title-${c.id}">${c.title.split('\n').join('<br> ')}</h2><p>${c.description}</p><div class="chapter-tags">${c.tags.map(t=>`<button data-detail="${c.detail}" aria-haspopup="dialog">${t}</button>`).join('')}</div></div><div class="chapter-visual ${c.cast==='study'?'study-visual':''}"><div class="scene-plate"><svg class="scene-art" viewBox="150 80 800 ${c.cast==='study'?650:570}" role="group" aria-label="${c.location}">${c.svg}${sceneLightMarkup(c.id)}</svg></div><div class="scene-response" aria-hidden="true">${lightScenes[c.id].caption}</div><div class="scene-cast ${c.cast}">${cast(c)}</div><div class="scene-caption">${c.caption}</div></div></section>`).join('');
 yearNav.innerHTML = chapterScenes.map((c,i)=>`<a href="#${c.id}" aria-label="${c.year}: ${c.location}" data-year="${i}">${c.nav}</a>`).join('');
 const chapters = [...document.querySelectorAll('.chapter')];
 const yearLinks = [...yearNav.children];
+const storyLight = createStoryLight(journey,chapters);
 let active=-1, renderPending=false, autoEnabled=!reduced.matches, autoComplete=false;
 let manualUntil=Date.now()+5500, hovering=false, modalOpen=false, camera=scrollY, velocity=0, lastTime=0;
 let lastStatus='', interactionTarget=null, lastOpener=null, endOfStory=0;
@@ -69,14 +70,16 @@ function render() {
   const expert=document.querySelector('#expertise').getBoundingClientRect();
   document.documentElement.classList.toggle('viewing-expertise',expert.top<160);
   endOfStory=expert.top+scrollY-(innerWidth<=760?68:84);
+  storyLight.update();
 }
 function scheduleRender(){if(!renderPending){renderPending=true;requestAnimationFrame(render);}}
 function updateStatus(){
   const state=autoComplete?'Replay story':!autoEnabled?'Your pace':modalOpen?'Reading details':hovering?'Paused to explore':Date.now()<manualUntil?'Your pace':'Auto journey';
-  if(state===lastStatus)return;
-  lastStatus=state;
-  document.querySelector('#auto-label').textContent=state;
   const playing=autoEnabled&&!autoComplete;
+  const signature=state+':'+playing;
+  if(signature===lastStatus)return;
+  lastStatus=signature;
+  document.querySelector('#auto-label').textContent=state;
   document.querySelector('#auto-toggle').setAttribute('aria-pressed',String(playing));
   document.querySelector('#auto-toggle').setAttribute('aria-label',playing?'Pause automatic journey':'Resume automatic journey');
   const status=document.querySelector('#journey-status');
@@ -120,7 +123,7 @@ function setInteraction(target){
   updateStatus();
 }
 function clearInteraction(){
-  if(interactionTarget){interactionTarget.classList.remove('is-engaged');const visual=interactionTarget.closest('.chapter-visual');if(visual){visual.classList.remove('is-engaged');delete visual.dataset.engaged;visual.querySelector('.scene-response').textContent='Hover to explore · Tap for the story';}}
+  if(interactionTarget){interactionTarget.classList.remove('is-engaged');const visual=interactionTarget.closest('.chapter-visual');if(visual){visual.classList.remove('is-engaged');delete visual.dataset.engaged;visual.querySelector('.scene-response').textContent=lightScenes[visual.closest('.chapter').id].caption;}}
   interactionTarget=null;hovering=false;updateStatus();
 }
 document.addEventListener('pointerover',event=>{if(!fineHover.matches||event.pointerType==='touch'||modalOpen)return;const target=event.target.closest('[data-detail]');if(target)setInteraction(target);});

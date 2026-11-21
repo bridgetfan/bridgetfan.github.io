@@ -19,8 +19,8 @@
     player.classList.toggle('is-loading',state==='loading');
     toggle.setAttribute('aria-pressed',String(engaged));
     toggle.setAttribute('aria-label',engaged?'Pause instrumental music':'Play instrumental music');
-    toggle.title=engaged?'Pause Gymnopédie No. 1':'Play Gymnopédie No. 1';
-    status.textContent=playing?'Playing softly':state==='loading'?'Loading the piano…':state==='error'?'Could not load the music. Tap the record to retry.':'Click the record to play.';
+    toggle.title=engaged?'Pause Inspired':'Play Inspired';
+    status.textContent=playing?'Playing softly':state==='loading'?'Loading the music…':state==='error'?'Could not load the music. Tap the record to retry.':'Click the record to play.';
   }
 
   function setVolume() {

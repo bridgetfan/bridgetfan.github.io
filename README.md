@@ -8,14 +8,14 @@ The single-page story moves through undergraduate study in Chengdu, interpreting
 
 ## Experience
 
-- Continuous, automatically scrolling scenes connected by a changing source of light: star, city window, home, study screen and platform signal. Manual scrolling and year navigation remain available.
+- Continuous, automatically scrolling scenes connected by a changing source of light: star, city window, home, study screen and platform signal. Automatic travel is paced at 30 px/s on desktop and 24 px/s on mobile, with a 10-second reading stop at each chapter. Manual scrolling pauses the automatic journey until the reader explicitly resumes. Year navigation jumps directly to the chosen chapter.
 - Characters contained within each scene, with separate space for the illustrations and text.
 - Hover and keyboard-focus feedback on scene details; click or tap to read more.
 - A compact capability overview, with details in a desktop side panel or mobile bottom sheet.
 - Native modal focus handling, Escape dismissal and restoration of the original reading position.
 - Reduced-motion preferences disable automatic scrolling and animated effects.
-- A floating vinyl-style player offers optional instrumental piano, with playback and volume controls. Music starts only after a click and pauses when the browser tab is hidden.
-- Recording: Gymnopedie No. 1, Kevin MacLeod (Incompetech), composed by Erik Satie. Licensed under CC BY 4.0; full attribution is in the player and `music-credits.txt`.
+- A compact vinyl-style player in the top navigation offers optional uplifting instrumental music, with playback and volume controls. Music starts only after a click and pauses when the browser tab is hidden.
+- Recording: Inspired, composed and performed by Kevin MacLeod (Incompetech). Licensed under CC BY 4.0; full attribution is in the player and `music-credits.txt`.
 
 ## Files
 
@@ -24,7 +24,7 @@ The single-page story moves through undergraduate study in Chengdu, interpreting
 - `app.js`: scene rendering, automatic scrolling, interactions and capability details.
 - `story-light.js`: scene-specific light motifs and the short moving light trail between scenes.
 - `music-player.js`: user-controlled audio playback and the floating player.
-- `gymnopedie-no-1.mp3` and `music-credits.txt`: the piano recording and attribution.
+- `inspired.mp3` and `music-credits.txt`: the instrumental recording and attribution.
 - `style.css`: responsive layout, typography and animation.
 - `family-cartoon-set.png`: family character artwork and the study portrait.
 - `bridget-professional.png`: standing and presenting character poses.

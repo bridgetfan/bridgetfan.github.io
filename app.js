@@ -44,14 +44,20 @@ const chapters = [...document.querySelectorAll('.chapter')];
 const yearLinks = [...yearNav.children];
 const storyLight = createStoryLight(journey,chapters);
 let active=-1, renderPending=false, autoEnabled=!reduced.matches, autoComplete=false;
-let manualUntil=Date.now()+5500, hovering=false, modalOpen=false, camera=scrollY, velocity=0, lastTime=0;
+let holdUntil=Date.now()+6500, hovering=false, modalOpen=false, camera=scrollY, velocity=0, lastTime=0;
 let lastStatus='', interactionTarget=null, lastOpener=null, endOfStory=0;
+let readingStops=[], nextReadingStop=0, readingHold=false, expectedAutoY=scrollY;
+const CHAPTER_DWELL_MS=10000;
 function render() {
   renderPending=false;
   const center=innerHeight*.52;
+  const rootStyle=getComputedStyle(document.documentElement);
+  const readingTop=parseFloat(rootStyle.getPropertyValue('--header'))+parseFloat(rootStyle.getPropertyValue('--rail'));
+  readingStops=[];
   let closest=0, distance=Infinity;
   chapters.forEach((chapter,i)=>{
     const rect=chapter.getBoundingClientRect();
+    readingStops.push(Math.max(0,rect.top+scrollY-readingTop));
     const d=Math.abs(rect.top+rect.height/2-center);
     if(d<distance){distance=d;closest=i;}
     const near=rect.bottom>-innerHeight&&rect.top<innerHeight*2;
@@ -74,7 +80,8 @@ function render() {
 }
 function scheduleRender(){if(!renderPending){renderPending=true;requestAnimationFrame(render);}}
 function updateStatus(){
-  const state=autoComplete?'Replay story':!autoEnabled?'Your pace':modalOpen?'Reading details':hovering?'Paused to explore':Date.now()<manualUntil?'Your pace':'Auto journey';
+  const atEnd=autoComplete||(!autoEnabled&&endOfStory>0&&scrollY>=endOfStory-4);
+  const state=atEnd?'Replay story':!autoEnabled?'Your pace':modalOpen?'Reading details':hovering?'Paused to explore':readingHold&&Date.now()<holdUntil?'Reading chapter':'Auto journey';
   const playing=autoEnabled&&!autoComplete;
   const signature=state+':'+playing;
   if(signature===lastStatus)return;
@@ -87,33 +94,47 @@ function updateStatus(){
   status.classList.toggle('visible',state==='Paused to explore');
 }
 function tick(time){
-  const elapsed=lastTime?Math.min(70,time-lastTime):0;lastTime=time;
+  const elapsed=lastTime?Math.min(50,time-lastTime):0;lastTime=time;
+  // A native scrollbar drag or browser scroll must never fight the camera.
+  if(autoEnabled&&Math.abs(scrollY-expectedAutoY)>3)pauseForInput();
   const canMove=autoEnabled&&!autoComplete&&!document.hidden&&!reduced.matches&&!modalOpen;
-  const moving=canMove&&!hovering&&Date.now()>=manualUntil;
-  const speed=moving?(innerWidth<=760?.040:.052):0;
-  velocity+=(speed-velocity)*(1-Math.exp(-elapsed/240));
-  if(!canMove||Date.now()<manualUntil)velocity=0;
+  const moving=canMove&&!hovering&&Date.now()>=holdUntil;
+  const speed=innerWidth<=760?.024:.030;
+  if(!moving)velocity=0;
+  else velocity+=(speed-velocity)*(1-Math.exp(-elapsed/600));
   if(velocity>.0001&&elapsed){
-    camera=Math.max(camera,scrollY);
-    camera=Math.min(endOfStory,camera+elapsed*velocity);
+    while(nextReadingStop<readingStops.length&&readingStops[nextReadingStop]<camera-3)nextReadingStop++;
+    const stop=nextReadingStop<readingStops.length?readingStops[nextReadingStop]:endOfStory;
+    camera=Math.min(endOfStory,stop,camera+elapsed*velocity);
+    expectedAutoY=camera;
     window.scrollTo({top:camera,behavior:'instant'});
-    if(camera>=endOfStory-1){autoComplete=true;autoEnabled=false;velocity=0;}
+    if(camera>=endOfStory-1){autoComplete=true;autoEnabled=false;velocity=0;readingHold=false;}
+    else if(camera>=stop-.1){nextReadingStop++;holdUntil=Date.now()+CHAPTER_DWELL_MS;readingHold=true;velocity=0;}
   }else camera=scrollY;
   updateStatus();requestAnimationFrame(tick);
 }
-function pauseForInput(){manualUntil=Date.now()+8000;velocity=0;camera=scrollY;}
+function pauseForInput(){autoEnabled=false;autoComplete=false;readingHold=false;holdUntil=0;velocity=0;camera=scrollY;expectedAutoY=scrollY;updateStatus();}
 addEventListener('wheel',event=>{if(!modalOpen)pauseForInput();},{passive:true});
-addEventListener('touchstart',pauseForInput,{passive:true});
-addEventListener('scroll',scheduleRender,{passive:true});
-addEventListener('resize',()=>{camera=scrollY;scheduleRender();});
-addEventListener('visibilitychange',()=>{lastTime=0;camera=scrollY;});
+addEventListener('touchmove',event=>{if(!modalOpen&&!event.target.closest('#music-panel'))pauseForInput();},{passive:true});
+addEventListener('scroll',()=>{if(autoEnabled&&Math.abs(scrollY-expectedAutoY)>3)pauseForInput();scheduleRender();},{passive:true});
+addEventListener('resize',()=>{camera=scrollY;expectedAutoY=scrollY;velocity=0;scheduleRender();});
+addEventListener('visibilitychange',()=>{lastTime=0;camera=scrollY;expectedAutoY=scrollY;velocity=0;if(!document.hidden)holdUntil=Date.now()+2000;});
 document.querySelector('#auto-toggle').addEventListener('click',()=>{
   if(reduced.matches)return;
-  if(autoComplete){autoComplete=false;window.scrollTo({top:0,behavior:'instant'});camera=0;autoEnabled=true;manualUntil=Date.now()+2200;}
-  else {autoEnabled=!autoEnabled;manualUntil=0;}
+  if(autoComplete||scrollY>=endOfStory-4){autoComplete=false;camera=0;expectedAutoY=0;window.scrollTo({top:0,behavior:'instant'});autoEnabled=true;nextReadingStop=0;holdUntil=Date.now()+5000;}
+  else if(autoEnabled)pauseForInput();
+  else {autoEnabled=true;camera=scrollY;expectedAutoY=scrollY;nextReadingStop=readingStops.findIndex(y=>y>scrollY+16);if(nextReadingStop<0)nextReadingStop=readingStops.length;holdUntil=Date.now()+1200;}
+  readingHold=false;
   velocity=0;updateStatus();
 });
-document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',()=>{pauseForInput();clearInteraction();}));
+document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',event=>{
+  const href=link.getAttribute('href');
+  const target=document.getElementById(href.slice(1));if(!target)return;
+  event.preventDefault();pauseForInput();clearInteraction();
+  target.scrollIntoView({behavior:'instant',block:'start'});
+  camera=scrollY;expectedAutoY=scrollY;
+  history.replaceState(null,'',href);scheduleRender();
+}));
 function setInteraction(target){
   if(interactionTarget===target)return;
   clearInteraction();interactionTarget=target;hovering=true;
@@ -132,6 +153,7 @@ document.addEventListener('focusin',event=>{if(modalOpen)return;const target=eve
 document.addEventListener('focusout',event=>{if(event.target.closest('[data-detail],[data-panel]')&&!modalOpen)clearInteraction();});
 function openDetail(key,opener){
   const detail=panels[key]||storyDetails[key];if(!detail)return;
+  pauseForInput();
   clearInteraction();lastOpener=opener;modalOpen=true;velocity=0;
   document.querySelector('#detail-label').textContent=detail.label;
   document.querySelector('#detail-title').textContent=detail.title;
@@ -148,7 +170,9 @@ document.addEventListener('click',event=>{
 document.addEventListener('keydown',event=>{
   const target=event.target.closest('[data-detail][role="button"]');
   if(target&&(event.key==='Enter'||event.key===' ')){event.preventDefault();openDetail(target.dataset.detail,target);return;}
-  if(!modalOpen&&['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key))pauseForInput();
+  const formControl=event.target.closest('input,select,textarea,[contenteditable="true"]');
+  const activatesButton=event.key===' '&&event.target.closest('button,a,[role="button"]');
+  if(!modalOpen&&!formControl&&!activatesButton&&['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key))pauseForInput();
 });
 document.querySelector('#close-detail').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();});
@@ -156,9 +180,9 @@ dialog.addEventListener('close',()=>{
   if(dialog.open)return;
   document.body.classList.remove('dialog-open');clearInteraction();
   if(lastOpener?.isConnected)lastOpener.focus({preventScroll:true});
-  modalOpen=false;hovering=false;manualUntil=Date.now()+3500;camera=scrollY;lastTime=0;updateStatus();
+  modalOpen=false;hovering=false;holdUntil=0;camera=scrollY;expectedAutoY=scrollY;lastTime=0;updateStatus();
 });
-reduced.addEventListener('change',()=>{autoEnabled=!reduced.matches;autoComplete=false;velocity=0;manualUntil=Date.now()+4000;updateStatus();});
+reduced.addEventListener('change',()=>{pauseForInput();scheduleRender();});
 render();document.fonts?.ready.then(scheduleRender);addEventListener('load',scheduleRender);
 if(location.hash){requestAnimationFrame(()=>{const target=document.getElementById(location.hash.slice(1));if(target){target.scrollIntoView({behavior:'instant'});pauseForInput();}});}
 updateStatus();requestAnimationFrame(tick);

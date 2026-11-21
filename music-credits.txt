@@ -1,15 +1,24 @@
-Gymnopedie No. 1
-Original composition: Erik Satie
-Recording and performance: Kevin MacLeod (incompetech.com)
-ISRC: USUAN1100787
+Inspired
+Composition and recording: Kevin MacLeod (incompetech.com)
+ISRC: USUAN1600022
 
 Licensed under Creative Commons: By Attribution 4.0 License
 https://creativecommons.org/licenses/by/4.0/
 
 Track information and attribution:
-https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100787
+https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1600022
 
 Original recording download:
-https://incompetech.com/music/royalty-free/mp3-royaltyfree/Gymnopedie%20No%201.mp3
+https://incompetech.com/music/royalty-free/mp3-royaltyfree/Inspired.mp3
 
 The recording file is unmodified. The website provides playback, volume control and looping. Attribution is available from the visible record player's Music options panel.
+
+Previously published recording retained in this repository:
+Gymnopedie No. 1
+Original composition: Erik Satie
+Recording and performance: Kevin MacLeod (incompetech.com)
+ISRC: USUAN1100787
+Licensed under Creative Commons: By Attribution 4.0 License
+https://creativecommons.org/licenses/by/4.0/
+https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100787
+This recording is not used by the current player.

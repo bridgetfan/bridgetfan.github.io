@@ -1,6 +1,6 @@
 # Bridget Fan
 
-A personal website about my path into cybersecurity and cloud engineering.
+A personal website about my path into platform engineering, with a specialism in HashiCorp Vault.
 
 The single-page timeline covers undergraduate study in Chengdu, postgraduate interpreting study in Australia, industry experience, family life, a return to university for cybersecurity, and engineering work at Macquarie Group and Wipro / Optus.
 
@@ -8,7 +8,7 @@ The single-page timeline covers undergraduate study in Chengdu, postgraduate int
 
 https://bridgetfan.github.io/
 
-This is a static website built with HTML, CSS, JavaScript and SVG. It includes a continuous illustrated timeline, automatic scrolling, hover notes, mobile interactions and support for reduced-motion preferences.
+This is a static website built with HTML, CSS, JavaScript and SVG. It includes a continuous illustrated timeline, a capability-focused toolbox, automatic scrolling, hover notes, mobile interactions and support for reduced-motion preferences.
 
 Search indexing is discouraged with a `noindex, nofollow` meta tag. The published website and this repository remain public; the tag is not access control.
 
@@ -28,5 +28,6 @@ The `.nojekyll` file keeps the site as plain static files. No build service, dat
 - `style.css`: layout, colours and animation.
 - `scenes.js`: timeline content, illustration scenes and supporting notes.
 - `app.js`: scrolling, navigation and interactions.
+- `family-character-set.png`: stylised character illustrations used throughout the timeline.
 
 Edit the content in `scenes.js`, then commit the changes to update the site.

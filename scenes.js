@@ -5,8 +5,8 @@ const chapterScenes=[
     "year": "2006",
     "nav": "2006",
     "location": "URUMQI → CHENGDU",
-    "title": "An independent\nbeginning.",
-    "description": "Moving from Urumqi to Chengdu for undergraduate study was my first significant step beyond home. It began a path shaped by education, independence and a willingness to enter unfamiliar environments.",
+    "title": "A foundation\nbeyond familiar ground.",
+    "description": "I left Urumqi for undergraduate study in Chengdu in 2006. It was the first of several moves into a new environment, each requiring the same approach: understand the context, learn deliberately and build a solid foundation.",
     "tags": [
       "Undergraduate study",
       "Urumqi · Chengdu"
@@ -22,11 +22,11 @@ const chapterScenes=[
     "year": "2010",
     "nav": "2010",
     "location": "A NEW COUNTRY · AUSTRALIA",
-    "title": "Learning to work\nacross contexts.",
-    "description": "I moved to Australia for a master’s in interpreting. The discipline called for precise listening, careful judgement and clarity across languages — a foundation that continues to inform how I approach technical work.",
+    "title": "Precision across\nlanguages and contexts.",
+    "description": "A master’s in interpreting brought me to Australia in 2010. The discipline sharpened how I listen, interpret context and communicate complex information clearly — habits I continue to bring to engineering work.",
     "tags": [
       "Master’s in interpreting",
-      "Australia"
+      "Clear technical communication"
     ],
     "caption": "LANGUAGE / CONTEXT / CLARITY",
     "accent": "#8ebcfe",
@@ -39,11 +39,11 @@ const chapterScenes=[
     "year": "AFTER GRADUATION",
     "nav": "WORK",
     "location": "SEVEN YEARS · AUTOMOTIVE CARE PRODUCTS",
-    "title": "A grounding in\nthe business world.",
-    "description": "After graduating, I spent seven years at an automotive care products company. That sustained experience outside technology remains part of the broader business perspective I bring to engineering.",
+    "title": "A commercial\nperspective.",
+    "description": "Before technology, I spent seven years at an automotive care products company. That experience gave me a working life outside engineering, and a broader context for considering how technical decisions fit the needs of a business.",
     "tags": [
       "Industry experience",
-      "Seven years"
+      "Business context"
     ],
     "caption": "INDUSTRY EXPERIENCE / AUTOMOTIVE CARE",
     "accent": "#7edacf",
@@ -56,8 +56,8 @@ const chapterScenes=[
     "year": "2015",
     "nav": "2015",
     "location": "ERIC + BRIDGET",
-    "title": "A shared\nfoundation.",
-    "description": "Eric and I married in 2015. Building a life together became a constant through the study, parenthood and professional changes that followed.",
+    "title": "A shared life.",
+    "description": "Eric and I married in 2015. Our life together has continued through further study, parenthood and the transition into a new profession.",
     "tags": [
       "Eric & Bridget",
       "Family"
@@ -73,11 +73,11 @@ const chapterScenes=[
     "year": "2020",
     "nav": "2020",
     "location": "HELLO, AIDEN",
-    "title": "A broader sense\nof responsibility.",
-    "description": "Aiden arrived in 2020, and our family of two became three. Parenthood added a new dimension to life — alongside the decision to pursue a different professional direction.",
+    "title": "A family of three.",
+    "description": "Aiden was born in 2020. Our family grew from two to three, and the next professional chapter would take shape alongside the responsibilities of early parenthood.",
     "tags": [
       "Parenthood",
-      "A family of three"
+      "2020"
     ],
     "caption": "FAMILY / A NEW PERSPECTIVE",
     "accent": "#c3b6fb",
@@ -90,25 +90,25 @@ const chapterScenes=[
     "year": "A NEW DIRECTION",
     "nav": "RESET",
     "location": "MATERNITY LEAVE · CYBERSECURITY",
-    "title": "A deliberate\nchange of discipline.",
-    "description": "During maternity leave, I undertook a Bachelor of Cybersecurity to enter a new industry. Days caring for Aiden were followed by nights of study, assignments and exams — a sustained commitment to a different career.",
+    "title": "Changing disciplines.\nBuilding technical depth.",
+    "description": "During maternity leave, I undertook a Bachelor of Cybersecurity to move into a new industry. Caring for Aiden by day and studying at night meant building that foundation through sustained work, assignments and exams.",
     "tags": [
       "Bachelor of Cybersecurity",
-      "Career transition"
+      "Deliberate career transition"
     ],
     "caption": "A CHANGE OF DISCIPLINE / A CONSIDERED DIRECTION",
     "accent": "#9aabff",
     "detail": "reset",
     "cast": "study",
-    "svg": "\n<g class=\"parallax-far\"><path d=\"M209 495V145h590v350\" fill=\"#0c182d\" stroke=\"#394d76\" stroke-width=\"2\"/><rect x=\"611\" y=\"176\" width=\"142\" height=\"155\" rx=\"4\" fill=\"#101b35\" stroke=\"#4d6093\" stroke-width=\"2\"/><path d=\"M682 176v155m-71-78h142\" stroke=\"#3e527f\"/><path d=\"M692 191a30 30 0 0 0 21 48 33 33 0 1 1-21-48\" fill=\"#adbff0\" class=\"night-light\"/><circle cx=\"644\" cy=\"211\" r=\"2\" fill=\"#a8dce9\"/><circle cx=\"728\" cy=\"279\" r=\"2\" fill=\"#a8dce9\"/><path d=\"M256 215h219m-207 0v47m193-47v47\" stroke=\"#58718c\" stroke-width=\"3\"/><path d=\"m282 172 0 42m18-58v58m20-30v30m24-52v52m19-57v57m24-38v38m26-54v54m23-38v38\" stroke=\"#4f879a\" stroke-width=\"12\"/></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"reset\" aria-label=\"Daytime with Aiden, study after dark\"><title>Daytime with Aiden, study after dark</title><g transform=\"translate(243 400)\"><path d=\"M0 32c4 62 32 99 96 101 47-14 65-47 69-101z\" fill=\"#253052\" stroke=\"#9aa7d7\" stroke-width=\"2\"/><path d=\"M0 32c25-56 131-56 165 0M20 126l-13 60m129-60 13 60M-3 186c46 21 118 21 159 0\" fill=\"none\" stroke=\"#8c9ac4\" stroke-width=\"3\"/><use href=\"#baby\" x=\"42\" y=\"-27\" width=\"80\" height=\"100\"/></g></g>\n<g transform=\"translate(550 298)\"><path d=\"M6 47c0-58 75-57 75 0v82H7z\" fill=\"#101a2b\" stroke=\"#67bbca\" stroke-width=\"2\"/><ellipse cx=\"45\" cy=\"45\" rx=\"25\" ry=\"30\" fill=\"#c7a89f\"/><path d=\"M19 35c-2-41 54-41 54 8-18-2-26-8-37-19-2 13-11 16-17 17\" fill=\"#172335\"/><path d=\"m14 78 59 0 19 93H-6z\" fill=\"#245164\" stroke=\"#74d0dc\" stroke-width=\"2\"/></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"reset\" aria-label=\"A Bachelor of Cybersecurity during maternity leave\"><title>A Bachelor of Cybersecurity during maternity leave</title><g transform=\"translate(494 393)\"><use href=\"#laptop\" width=\"228\" height=\"162\"/><path class=\"code-line\" d=\"M55 59h45m-45 14h74m-74 14h90\" stroke=\"#aaf4cf\" stroke-width=\"2\"/></g></g>\n<path d=\"M456 540h363m-329 0-14 90m302-90 16 90\" fill=\"none\" stroke=\"#43687e\" stroke-width=\"5\"/>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"cyber-degree\" aria-label=\"Assignments, exams and a different future\"><title>Assignments, exams and a different future</title><g transform=\"translate(727 459) rotate(6)\"><use href=\"#book\" width=\"115\" height=\"76\"/></g></g>\n<g transform=\"translate(733 337)\"><path d=\"M0 148h70m-34 0 6-92 29-32\" stroke=\"#5c83a2\" stroke-width=\"4\" fill=\"none\"/><path d=\"m54 4 25 10 12 39-61-23z\" fill=\"#213f57\" stroke=\"#91b5ce\" stroke-width=\"2\"/><path d=\"m31 30-70 143 160 0-31-121z\" fill=\"#739edb\" opacity=\".035\" class=\"night-light\"/></g>"
+    "svg": "\n<g class=\"parallax-far\"><path d=\"M209 495V145h590v350\" fill=\"#0c182d\" stroke=\"#394d76\" stroke-width=\"2\"/><rect x=\"611\" y=\"176\" width=\"142\" height=\"155\" rx=\"4\" fill=\"#101b35\" stroke=\"#4d6093\" stroke-width=\"2\"/><path d=\"M682 176v155m-71-78h142\" stroke=\"#3e527f\"/><path d=\"M692 191a30 30 0 0 0 21 48 33 33 0 1 1-21-48\" fill=\"#adbff0\" class=\"night-light\"/><circle cx=\"644\" cy=\"211\" r=\"2\" fill=\"#a8dce9\"/><circle cx=\"728\" cy=\"279\" r=\"2\" fill=\"#a8dce9\"/><path d=\"M256 215h219m-207 0v47m193-47v47\" stroke=\"#58718c\" stroke-width=\"3\"/><path d=\"m282 172 0 42m18-58v58m20-30v30m24-52v52m19-57v57m24-38v38m26-54v54m23-38v38\" stroke=\"#4f879a\" stroke-width=\"12\"/></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"reset\" aria-label=\"Daytime with Aiden, study after dark\"><title>Daytime with Aiden, study after dark</title><g transform=\"translate(243 400)\"><path d=\"M0 32c4 62 32 99 96 101 47-14 65-47 69-101z\" fill=\"#253052\" stroke=\"#9aa7d7\" stroke-width=\"2\"/><path d=\"M0 32c25-56 131-56 165 0M20 126l-13 60m129-60 13 60M-3 186c46 21 118 21 159 0\" fill=\"none\" stroke=\"#8c9ac4\" stroke-width=\"3\"/><use href=\"#baby\" x=\"42\" y=\"-27\" width=\"80\" height=\"100\"/></g></g>\n<g clip-path=\"url(#study-portrait-mask)\"><use href=\"#girl\" x=\"535\" y=\"267\" width=\"145\" height=\"305\"/></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"reset\" aria-label=\"A Bachelor of Cybersecurity during maternity leave\"><title>A Bachelor of Cybersecurity during maternity leave</title><g transform=\"translate(494 393)\"><use href=\"#laptop\" width=\"228\" height=\"162\"/><path class=\"code-line\" d=\"M55 59h45m-45 14h74m-74 14h90\" stroke=\"#aaf4cf\" stroke-width=\"2\"/></g></g>\n<path d=\"M456 540h363m-329 0-14 90m302-90 16 90\" fill=\"none\" stroke=\"#43687e\" stroke-width=\"5\"/>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"cyber-degree\" aria-label=\"Assignments, exams and a different future\"><title>Assignments, exams and a different future</title><g transform=\"translate(727 459) rotate(6)\"><use href=\"#book\" width=\"115\" height=\"76\"/></g></g>\n<g transform=\"translate(733 337)\"><path d=\"M0 148h70m-34 0 6-92 29-32\" stroke=\"#5c83a2\" stroke-width=\"4\" fill=\"none\"/><path d=\"m54 4 25 10 12 39-61-23z\" fill=\"#213f57\" stroke=\"#91b5ce\" stroke-width=\"2\"/><path d=\"m31 30-70 143 160 0-31-121z\" fill=\"#739edb\" opacity=\".035\" class=\"night-light\"/></g>"
   },
   {
     "id": "internship",
     "year": "2023",
     "nav": "2023",
     "location": "JANUARY · MACQUARIE GROUP",
-    "title": "Turning preparation\ninto practice.",
-    "description": "Joining Macquarie Group as an intern in January 2023 marked my entry into engineering. A considered career change became hands-on work in an enterprise environment.",
+    "title": "From retraining\nto enterprise engineering.",
+    "description": "I joined Macquarie Group as an intern in January 2023. It was the transition from formal study into enterprise engineering: learning the systems, delivery practices and operational context behind a production platform.",
     "tags": [
       "Macquarie Group",
       "Enterprise engineering"
@@ -124,11 +124,11 @@ const chapterScenes=[
     "year": "2023 — 2026",
     "nav": "ENGINEER",
     "location": "JULY 2023 · MACQUARIE GROUP",
-    "title": "Secure access,\nengineered into the platform.",
-    "description": "As an engineer in Macquarie’s Secrets Management feature team, I worked across Vault, AWS, Kubernetes and automation. My focus was integrating authentication and secrets consumption into the platforms applications depend on.",
+    "title": "Secrets management\nas a platform capability.",
+    "description": "In Macquarie’s Secrets Management feature team, I worked on Vault authentication, secrets engines and application integration across AWS and Kubernetes. Terraform, Python, Go and delivery pipelines supported repeatable platform changes.",
     "tags": [
-      "Secrets management",
-      "Platform integration"
+      "Vault integrations",
+      "AWS · Kubernetes · Terraform"
     ],
     "caption": "VAULT / CLOUD PLATFORMS / AUTOMATION",
     "accent": "#aaf4cb",
@@ -141,11 +141,11 @@ const chapterScenes=[
     "year": "2026",
     "nav": "2026",
     "location": "AUGUST · WIPRO / OPTUS",
-    "title": "Applying the craft\nin a new environment.",
-    "description": "At Wipro, working with Optus, I contribute to secrets management through application onboarding, migration and automation. The work combines technical delivery with the coordination required to help teams adopt secure patterns.",
+    "title": "Secure patterns.\nPractical adoption.",
+    "description": "At Wipro, working with Optus, my focus is secrets migration, application onboarding and repeatable integration patterns. The work combines implementation with the coordination needed to help application teams adopt secure approaches.",
     "tags": [
       "Wipro / Optus",
-      "Delivery & adoption"
+      "Platform adoption"
     ],
     "caption": "TECHNICAL DELIVERY / SECURE ADOPTION",
     "accent": "#71e0ef",
@@ -158,11 +158,11 @@ const chapterScenes=[
     "year": "NOW",
     "nav": "NOW",
     "location": "SYDNEY · STILL CURIOUS",
-    "title": "Perspective that informs.\nPractice that evolves.",
-    "description": "My focus remains practical: secure platforms, repeatable engineering and thoughtful automation. I’m also exploring how AI can improve service desk triage and onboarding, while continuing to deepen my engineering practice.",
+    "title": "Depth in the platform.\nContext beyond it.",
+    "description": "My practice centres on HashiCorp Vault, cloud integration and engineering automation. I’m continuing to deepen that specialism while exploring practical uses of AI in service desk triage and onboarding.",
     "tags": [
-      "Security · Cloud · Automation",
-      "Applied AI"
+      "HashiCorp Vault specialism",
+      "Platform engineering"
     ],
     "caption": "A CONTINUING ENGINEERING PRACTICE",
     "accent": "#b5f6cd",
@@ -234,33 +234,33 @@ const storyDetails={
   },
   "engineering": {
     "label": "JULY 2023 – AUGUST 2026 · MACQUARIE GROUP",
-    "title": "Secure access as part of the platform.",
-    "body": "<p>From July 2023 to August 2026, I worked as an engineer in Macquarie’s Secrets Management feature team.</p><p>My work connected Vault, AWS, Kubernetes and automation through authentication, secrets engines, application integration, Terraform modules and delivery pipelines.</p>"
+    "title": "Secrets management as a platform capability.",
+    "body": "<p>In Macquarie’s Secrets Management feature team, my work connected Vault authentication and secrets engines with AWS, Kubernetes and application delivery.</p><p>It included Vault Agent integration, Terraform modules, dynamic database credentials, PKI and SSH work, and automation using Python and Go.</p>"
   },
   "vault": {
-    "label": "SECRETS MANAGEMENT · HASHICORP VAULT",
-    "title": "Keeping the right secrets.",
-    "body": "<p>My work with Vault includes static and dynamic secrets, application authentication and platform integration.</p><div class=\"skill-grid\"><span>KV secrets</span><span>Dynamic database credentials</span><span>AWS auth</span><span>Kubernetes auth</span><span>AppRole</span><span>Vault Agent</span><span>PKI</span><span>SSH</span></div><p>I hold the HashiCorp Vault Associate certification.</p>"
+    "label": "SPECIALIST PRACTICE · HASHICORP VAULT",
+    "title": "Secrets and identity as platform capabilities.",
+    "body": "<p>My Vault experience spans AWS, Kubernetes and AppRole authentication; KV secrets; dynamic database credentials; PKI; SSH; and application integration using Vault Agent.</p><p>I work on the integration patterns and automation that connect these capabilities to application delivery. I hold the HashiCorp Vault Associate certification.</p>"
   },
   "cloud": {
-    "label": "CLOUD · INFRASTRUCTURE",
-    "title": "Where security meets the platform.",
-    "body": "<p>My cloud engineering experience includes AWS, EKS, Lambda and Terraform, with a focus on application authentication and secrets integration.</p><div class=\"skill-grid\"><span>AWS</span><span>Kubernetes / EKS</span><span>Terraform</span><span>Lambda</span><span>Go</span></div>"
+    "label": "CLOUD & KUBERNETES",
+    "title": "Connecting workload identity to the platform.",
+    "body": "<p>My work includes AWS, EKS, Lambda and Terraform, with a focus on how workloads authenticate and consume secrets.</p><p>This includes Vault Agent integrations and patterns that connect Kubernetes-based applications to secrets management.</p>"
   },
   "automation": {
-    "label": "HOW I BUILD",
-    "title": "Make the useful things repeatable.",
-    "body": "<p>I work with Python, Go, Terraform and CI/CD to automate repeatable tasks and integration patterns.</p><p>The aim is to make secure engineering straightforward for the people who need to use it.</p>"
+    "label": "ENGINEERING AUTOMATION",
+    "title": "Turn the repeated task into a reusable pattern.",
+    "body": "<p>I use Python, Go, Terraform and CI/CD to automate platform tasks and application integrations.</p><p>The emphasis is on repeatable changes, reusable configuration and onboarding patterns that fit the way engineering teams deliver software.</p>"
   },
   "next": {
     "label": "AUGUST 2026 – PRESENT · WIPRO / OPTUS",
-    "title": "Technical delivery and secure adoption.",
-    "body": "<p>I joined Wipro in August 2026, working with Optus on secrets management.</p><p>My work includes application onboarding, secrets migration, integration patterns and automation. It combines implementation with the coordination needed to help application teams adopt secure approaches.</p>"
+    "title": "Engineering the pattern and supporting its adoption.",
+    "body": "<p>At Wipro, working with Optus, I focus on secrets migration, application onboarding and repeatable integration patterns.</p><p>The work brings together technical implementation, delivery coordination and collaboration with application teams to help secure approaches become part of everyday delivery.</p>"
   },
   "now": {
-    "label": "SYDNEY · STILL BECOMING",
-    "title": "A continuing engineering practice.",
-    "body": "<p>My current focus brings together secrets management, cloud platforms and engineering automation.</p><p>I am also exploring practical applications of AI in service desk triage and onboarding, while continuing to develop the depth of my engineering practice.</p>"
+    "label": "PLATFORM ENGINEERING · CONTINUING PRACTICE",
+    "title": "Technical depth, with a wider perspective.",
+    "body": "<p>My focus is HashiCorp Vault and the surrounding platform: cloud integration, workload identity, infrastructure as code and automation.</p><p>I’m also exploring practical AI proofs of concept for service desk triage and onboarding support.</p>"
   },
   "ai": {
     "label": "EXPLORING · AI",
@@ -273,14 +273,14 @@ const storyDetails={
     "body": "<p>My path into cybersecurity was a deliberate change of discipline, supported by further study alongside early parenthood.</p><p>Continuing to learn is part of how I develop my engineering practice: testing ideas, understanding systems and finding practical improvements.</p>"
   },
   "bridget": {
-    "label": "HELLO · I’M BRIDGET",
-    "title": "A wider perspective on engineering.",
-    "body": "<p>I’m Bridget Fan, a cybersecurity and cloud engineer in Sydney, working across secrets management, platform integration and automation.</p><p>My professional perspective includes postgraduate interpreting study, seven years in automotive care products and a deliberate return to university before entering engineering in 2023.</p>"
+    "label": "BRIDGET FAN · PLATFORM ENGINEERING",
+    "title": "Secure access, built into the platform.",
+    "body": "<p>I work across secrets management, workload authentication and automated cloud integrations, with a specialism in HashiCorp Vault.</p><p>My hands-on experience brings together Vault, AWS, Kubernetes, Terraform, Python and Go. I focus on integrations and repeatable delivery patterns that application teams can use.</p>"
   },
   "toolbox": {
-    "label": "MY TOOLBOX",
-    "title": "Tools for useful things.",
-    "body": "<p>My engineering work spans security, infrastructure and automation.</p><div class=\"skill-grid\"><span>HashiCorp Vault</span><span>AWS</span><span>Kubernetes</span><span>Terraform</span><span>Python</span><span>Go</span><span>GitLab CI</span><span>Splunk</span></div><p>Certifications include HashiCorp Vault Associate, AWS Cloud Practitioner, AWS Solutions Architect Associate and CEH.</p>"
+    "label": "PLATFORM ENGINEERING · HASHICORP VAULT",
+    "title": "A specialism with platform context.",
+    "body": "<p>HashiCorp Vault is at the centre of my practice: workload authentication, static and dynamic secrets, Vault Agent and application integration.</p><p>AWS, Kubernetes, Terraform and engineering automation provide the surrounding platform context. The full toolbox below brings those capabilities together.</p>"
   },
   "how": {
     "label": "YOUR STORY CONTROLS",
@@ -291,5 +291,15 @@ const storyDetails={
     "label": "ABOUT THIS STORY",
     "title": "A life in chapters.",
     "body": "<p>A single-page, interactive account of Bridget Fan’s journey, from leaving Urumqi in 2006 to working in cybersecurity and cloud engineering.</p><p>The illustrations are stylised scenes, rather than photographs or exact portraits. The timeline follows the dates provided; the seven-year automotive care role is labelled “after graduation” because its exact dates have not been specified.</p>"
+  },
+  "platform_delivery": {
+    "label": "DELIVERY & OPERATIONAL CONTEXT",
+    "title": "A platform capability has to work for its users.",
+    "body": "<p>My work includes application onboarding, migration support, integration testing and coordination around production changes.</p><p>I also use Splunk and delivery pipelines as part of the broader engineering context for supporting and improving integrations.</p>"
+  },
+  "infra": {
+    "label": "INFRASTRUCTURE AS CODE",
+    "title": "Make the configuration repeatable.",
+    "body": "<p>I work with Terraform modules and CI/CD to make cloud and secrets-management changes repeatable.</p><p>The surrounding tools include AWS, EKS, GitLab CI and Bamboo, alongside Python and Go automation.</p>"
   }
 };

@@ -8,7 +8,7 @@ The single-page story moves through undergraduate study in Chengdu, interpreting
 
 ## Experience
 
-- Continuous, automatically scrolling scenes connected by a changing source of light: star, city window, home, study screen and platform signal. Automatic travel is paced at 30 px/s on desktop and 24 px/s on mobile, with a 10-second reading stop at each chapter. Manual scrolling pauses the automatic journey until the reader explicitly resumes. Year navigation jumps directly to the chosen chapter.
+- Continuous, automatically scrolling scenes connected by a changing source of light: star, city window, home, study screen and platform signal. Autoplay moves continuously, slowing to 30 px/s on desktop and 24 px/s on mobile while text is visible, with eased transitions through the illustrations. Hover feedback never locks playback. Manual gestures have bounded travel and momentum to avoid skipping several chapters. Manual scrolling pauses the automatic journey until the reader explicitly resumes. Year navigation jumps directly to the chosen chapter.
 - Characters contained within each scene, with separate space for the illustrations and text.
 - Hover and keyboard-focus feedback on scene details; click or tap to read more.
 - A compact capability overview, with details in a desktop side panel or mobile bottom sheet.
@@ -22,6 +22,7 @@ The single-page story moves through undergraduate study in Chengdu, interpreting
 - `index.html`: page structure, illustration symbols and the detail dialog.
 - `scenes.js`: timeline content, illustrated scenes and supporting story details.
 - `app.js`: scene rendering, automatic scrolling, interactions and capability details.
+- `reading-scroll.js`: bounded manual wheel and touch gestures.
 - `story-light.js`: scene-specific light motifs and the short moving light trail between scenes.
 - `music-player.js`: user-controlled audio playback and the floating player.
 - `inspired.mp3` and `music-credits.txt`: the instrumental recording and attribution.

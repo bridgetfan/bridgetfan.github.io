@@ -44,26 +44,27 @@ const chapters = [...document.querySelectorAll('.chapter')];
 const yearLinks = [...yearNav.children];
 const storyLight = createStoryLight(journey,chapters);
 let active=-1, renderPending=false, autoEnabled=!reduced.matches, autoComplete=false;
-let holdUntil=Date.now()+6500, hovering=false, modalOpen=false, camera=scrollY, velocity=0, lastTime=0;
+let holdUntil=Date.now()+1500, hovering=false, modalOpen=false, camera=scrollY, velocity=0, lastTime=0;
 let lastStatus='', interactionTarget=null, lastOpener=null, endOfStory=0;
-let readingStops=[], nextReadingStop=0, readingHold=false, expectedAutoY=scrollY;
-const CHAPTER_DWELL_MS=10000;
+let expectedAutoY=scrollY, readingSpeed=.030, readingScroll=null;
 function render() {
   renderPending=false;
   const center=innerHeight*.52;
   const rootStyle=getComputedStyle(document.documentElement);
   const readingTop=parseFloat(rootStyle.getPropertyValue('--header'))+parseFloat(rootStyle.getPropertyValue('--rail'));
-  readingStops=[];
+  let textVisible=false;
   let closest=0, distance=Infinity;
   chapters.forEach((chapter,i)=>{
     const rect=chapter.getBoundingClientRect();
-    readingStops.push(Math.max(0,rect.top+scrollY-readingTop));
+    const copy=chapter.querySelector('.chapter-copy').getBoundingClientRect();
+    if(copy.top<innerHeight*.72&&copy.bottom>readingTop+32)textVisible=true;
     const d=Math.abs(rect.top+rect.height/2-center);
     if(d<distance){distance=d;closest=i;}
     const near=rect.bottom>-innerHeight&&rect.top<innerHeight*2;
     chapter.classList.toggle('nearby',near);
     if(near)chapter.style.setProperty('--drift',clamp((rect.top+rect.height/2-center)/innerHeight,-1,1).toFixed(3));
   });
+  readingSpeed=textVisible?(innerWidth<=760?.024:.030):(innerWidth<=760?.040:.046);
   if(active!==closest){
     active=closest;
     chapters.forEach((c,i)=>c.classList.toggle('is-active',i===active));
@@ -81,7 +82,7 @@ function render() {
 function scheduleRender(){if(!renderPending){renderPending=true;requestAnimationFrame(render);}}
 function updateStatus(){
   const atEnd=autoComplete||(!autoEnabled&&endOfStory>0&&scrollY>=endOfStory-4);
-  const state=atEnd?'Replay story':!autoEnabled?'Your pace':modalOpen?'Reading details':hovering?'Paused to explore':readingHold&&Date.now()<holdUntil?'Reading chapter':'Auto journey';
+  const state=atEnd?'Replay story':!autoEnabled?'Your pace':modalOpen?'Reading details':'Auto journey';
   const playing=autoEnabled&&!autoComplete;
   const signature=state+':'+playing;
   if(signature===lastStatus)return;
@@ -90,41 +91,36 @@ function updateStatus(){
   document.querySelector('#auto-toggle').setAttribute('aria-pressed',String(playing));
   document.querySelector('#auto-toggle').setAttribute('aria-label',playing?'Pause automatic journey':'Resume automatic journey');
   const status=document.querySelector('#journey-status');
-  status.textContent=state==='Paused to explore'?'EXPLORE THE SCENE · MOVE AWAY TO CONTINUE':'';
-  status.classList.toggle('visible',state==='Paused to explore');
+  status.textContent='';
+  status.classList.remove('visible');
 }
 function tick(time){
-  const elapsed=lastTime?Math.min(50,time-lastTime):0;lastTime=time;
-  // A native scrollbar drag or browser scroll must never fight the camera.
-  if(autoEnabled&&Math.abs(scrollY-expectedAutoY)>3)pauseForInput();
-  const canMove=autoEnabled&&!autoComplete&&!document.hidden&&!reduced.matches&&!modalOpen;
-  const moving=canMove&&!hovering&&Date.now()>=holdUntil;
-  const speed=innerWidth<=760?.024:.030;
+  const elapsed=lastTime?Math.min(1000,time-lastTime):0;lastTime=time;
+  // Browser rounding or a viewport resize must not silently switch autoplay off.
+  if(autoEnabled&&Math.abs(scrollY-expectedAutoY)>3){camera=scrollY;velocity=0;}
+  const moving=autoEnabled&&!autoComplete&&!document.hidden&&!reduced.matches&&!modalOpen&&Date.now()>=holdUntil;
   if(!moving)velocity=0;
-  else velocity+=(speed-velocity)*(1-Math.exp(-elapsed/600));
+  else velocity+=(readingSpeed-velocity)*(1-Math.exp(-elapsed/600));
   if(velocity>.0001&&elapsed){
-    while(nextReadingStop<readingStops.length&&readingStops[nextReadingStop]<camera-3)nextReadingStop++;
-    const stop=nextReadingStop<readingStops.length?readingStops[nextReadingStop]:endOfStory;
-    camera=Math.min(endOfStory,stop,camera+elapsed*velocity);
-    expectedAutoY=camera;
+    camera=Math.min(endOfStory,camera+elapsed*velocity);
     window.scrollTo({top:camera,behavior:'instant'});
-    if(camera>=endOfStory-1){autoComplete=true;autoEnabled=false;velocity=0;readingHold=false;}
-    else if(camera>=stop-.1){nextReadingStop++;holdUntil=Date.now()+CHAPTER_DWELL_MS;readingHold=true;velocity=0;}
-  }else camera=scrollY;
+    expectedAutoY=scrollY;
+    if(camera>=endOfStory-1){autoComplete=true;autoEnabled=false;velocity=0;}
+  }else {camera=scrollY;expectedAutoY=scrollY;}
   updateStatus();requestAnimationFrame(tick);
 }
-function pauseForInput(){autoEnabled=false;autoComplete=false;readingHold=false;holdUntil=0;velocity=0;camera=scrollY;expectedAutoY=scrollY;updateStatus();}
-addEventListener('wheel',event=>{if(!modalOpen)pauseForInput();},{passive:true});
-addEventListener('touchmove',event=>{if(!modalOpen&&!event.target.closest('#music-panel'))pauseForInput();},{passive:true});
-addEventListener('scroll',()=>{if(autoEnabled&&Math.abs(scrollY-expectedAutoY)>3)pauseForInput();scheduleRender();},{passive:true});
+function pauseForInput(cancelReading=true){if(cancelReading)readingScroll?.cancel();autoEnabled=false;autoComplete=false;holdUntil=0;velocity=0;camera=scrollY;expectedAutoY=scrollY;updateStatus();}
+readingScroll=createReadingScroll({onInput:()=>pauseForInput(false),reduced,isBlocked:()=>modalOpen});
+addEventListener('scroll',scheduleRender,{passive:true});
+addEventListener('pointerdown',event=>{if(event.pointerType==='mouse'&&event.clientX>=document.documentElement.clientWidth)pauseForInput();},{passive:true});
 addEventListener('resize',()=>{camera=scrollY;expectedAutoY=scrollY;velocity=0;scheduleRender();});
-addEventListener('visibilitychange',()=>{lastTime=0;camera=scrollY;expectedAutoY=scrollY;velocity=0;if(!document.hidden)holdUntil=Date.now()+2000;});
+addEventListener('visibilitychange',()=>{lastTime=0;camera=scrollY;expectedAutoY=scrollY;velocity=0;if(!document.hidden)holdUntil=Date.now()+800;});
 document.querySelector('#auto-toggle').addEventListener('click',()=>{
+  readingScroll.cancel();
   if(reduced.matches)return;
-  if(autoComplete||scrollY>=endOfStory-4){autoComplete=false;camera=0;expectedAutoY=0;window.scrollTo({top:0,behavior:'instant'});autoEnabled=true;nextReadingStop=0;holdUntil=Date.now()+5000;}
+  if(autoComplete||scrollY>=endOfStory-4){autoComplete=false;camera=0;expectedAutoY=0;window.scrollTo({top:0,behavior:'instant'});autoEnabled=true;holdUntil=Date.now()+1200;}
   else if(autoEnabled)pauseForInput();
-  else {autoEnabled=true;camera=scrollY;expectedAutoY=scrollY;nextReadingStop=readingStops.findIndex(y=>y>scrollY+16);if(nextReadingStop<0)nextReadingStop=readingStops.length;holdUntil=Date.now()+1200;}
-  readingHold=false;
+  else {autoEnabled=true;camera=scrollY;expectedAutoY=scrollY;holdUntil=Date.now()+1200;}
   velocity=0;updateStatus();
 });
 document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',event=>{
@@ -149,7 +145,7 @@ function clearInteraction(){
 }
 document.addEventListener('pointerover',event=>{if(!fineHover.matches||event.pointerType==='touch'||modalOpen)return;const target=event.target.closest('[data-detail]');if(target)setInteraction(target);});
 document.addEventListener('pointerout',event=>{const target=event.target.closest('[data-detail]');if(target&&!target.contains(event.relatedTarget)&&!modalOpen)clearInteraction();});
-document.addEventListener('focusin',event=>{if(modalOpen)return;const target=event.target.closest('[data-detail],[data-panel]');if(target){hovering=true;if(target.dataset.detail)setInteraction(target);updateStatus();}});
+document.addEventListener('focusin',event=>{if(modalOpen)return;const target=event.target.closest('[data-detail],[data-panel]');if(target){if(target.matches(':focus-visible'))pauseForInput();hovering=true;if(target.dataset.detail)setInteraction(target);updateStatus();}});
 document.addEventListener('focusout',event=>{if(event.target.closest('[data-detail],[data-panel]')&&!modalOpen)clearInteraction();});
 function openDetail(key,opener){
   const detail=panels[key]||storyDetails[key];if(!detail)return;

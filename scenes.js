@@ -159,7 +159,7 @@ const chapterScenes=[
     "nav": "NOW",
     "location": "SYDNEY · STILL CURIOUS",
     "title": "Depth in the platform.\nContext beyond it.",
-    "description": "My practice centres on HashiCorp Vault, cloud integration and engineering automation. I’m continuing to deepen that specialism while exploring practical uses of AI in service desk triage and onboarding.",
+    "description": "I continue to deepen my expertise in platform engineering, with a focus on secure, reliable foundations and repeatable automation. My next chapter is about refining the craft and building platform capabilities that teams can confidently adopt and operate.",
     "tags": [
       "HashiCorp Vault specialism",
       "Platform engineering"
@@ -168,7 +168,7 @@ const chapterScenes=[
     "accent": "#b5f6cd",
     "detail": "now",
     "cast": "family",
-    "svg": "\n<g class=\"parallax-far\"><circle cx=\"557\" cy=\"279\" r=\"189\" fill=\"none\" stroke=\"#244b5b\" stroke-width=\"1\"/><circle cx=\"557\" cy=\"279\" r=\"222\" fill=\"none\" stroke=\"#244b5b\" stroke-width=\"1\" stroke-dasharray=\"3 13\"/><path d=\"M170 457c77-75 138-73 223-28s183 22 242-22 144-35 243 13\" stroke=\"#2c6770\" stroke-width=\"2\" fill=\"none\"/><path d=\"M171 480c77-75 138-73 223-28s183 22 242-22 144-35 243 13\" stroke=\"#203e52\" stroke-width=\"2\" fill=\"none\"/></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"ai\" aria-label=\"What I’m exploring with AI\"><title>What I’m exploring with AI</title><g class=\"ambient-float\" transform=\"translate(586 177)\"><path d=\"m60 0 12 43 44 16-44 13-12 45-14-45L0 59l46-16z\" fill=\"#1b4350\" stroke=\"#b8f3cf\" stroke-width=\"2\"/><circle class=\"hotspot-ring\" cx=\"58\" cy=\"59\" r=\"81\"/></g></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"learning\" aria-label=\"Room for another question\"><title>Room for another question</title><g transform=\"translate(256 425)\"><use href=\"#coffee\" width=\"128\" height=\"146\"/></g></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"family\" aria-label=\"Our family of three\"><title>Our family of three</title><g transform=\"translate(754 375)\"><path d=\"M0 120h73l-11 63H12z\" fill=\"#293a53\" stroke=\"#7dbcc1\" stroke-width=\"2\"/><path d=\"M36 122V4m0 79c-57-1-69-32-58-50 35 2 54 19 58 50m0-37c46-1 62-24 52-47-30 1-49 20-52 47\" fill=\"#164e50\" stroke=\"#70cebd\" stroke-width=\"2\"/></g></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"learning\" aria-label=\"Learn, build, repeat\"><title>Learn, build, repeat</title><g transform=\"translate(265 226) rotate(-7)\"><path d=\"M0 0h150v111H0z\" fill=\"#172e42\" stroke=\"#66b1bd\" stroke-width=\"2\"/><text x=\"21\" y=\"38\" fill=\"#bee8e1\" font-family=\"monospace\" font-size=\"17\">learn.</text><text x=\"21\" y=\"63\" fill=\"#bee8e1\" font-family=\"monospace\" font-size=\"17\">build.</text><text x=\"21\" y=\"88\" fill=\"#bee8e1\" font-family=\"monospace\" font-size=\"17\">repeat.</text></g></g>\n"
+    "svg": "\n<g class=\"parallax-far\"><circle cx=\"557\" cy=\"279\" r=\"189\" fill=\"none\" stroke=\"#244b5b\" stroke-width=\"1\"/><circle cx=\"557\" cy=\"279\" r=\"222\" fill=\"none\" stroke=\"#244b5b\" stroke-width=\"1\" stroke-dasharray=\"3 13\"/><path d=\"M170 457c77-75 138-73 223-28s183 22 242-22 144-35 243 13\" stroke=\"#2c6770\" stroke-width=\"2\" fill=\"none\"/><path d=\"M171 480c77-75 138-73 223-28s183 22 242-22 144-35 243 13\" stroke=\"#203e52\" stroke-width=\"2\" fill=\"none\"/></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"learning\" aria-label=\"Deepening my platform engineering practice\"><title>Deepening my platform engineering practice</title><g class=\"ambient-float\" transform=\"translate(586 177)\"><path d=\"m60 0 12 43 44 16-44 13-12 45-14-45L0 59l46-16z\" fill=\"#1b4350\" stroke=\"#b8f3cf\" stroke-width=\"2\"/><circle class=\"hotspot-ring\" cx=\"58\" cy=\"59\" r=\"81\"/></g></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"learning\" aria-label=\"Room for another question\"><title>Room for another question</title><g transform=\"translate(256 425)\"><use href=\"#coffee\" width=\"128\" height=\"146\"/></g></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"family\" aria-label=\"Our family of three\"><title>Our family of three</title><g transform=\"translate(754 375)\"><path d=\"M0 120h73l-11 63H12z\" fill=\"#293a53\" stroke=\"#7dbcc1\" stroke-width=\"2\"/><path d=\"M36 122V4m0 79c-57-1-69-32-58-50 35 2 54 19 58 50m0-37c46-1 62-24 52-47-30 1-49 20-52 47\" fill=\"#164e50\" stroke=\"#70cebd\" stroke-width=\"2\"/></g></g>\n<g class=\"hotspot\" role=\"button\" tabindex=\"0\" data-detail=\"learning\" aria-label=\"Learn, build, repeat\"><title>Learn, build, repeat</title><g transform=\"translate(265 226) rotate(-7)\"><path d=\"M0 0h150v111H0z\" fill=\"#172e42\" stroke=\"#66b1bd\" stroke-width=\"2\"/><text x=\"21\" y=\"38\" fill=\"#bee8e1\" font-family=\"monospace\" font-size=\"17\">learn.</text><text x=\"21\" y=\"63\" fill=\"#bee8e1\" font-family=\"monospace\" font-size=\"17\">build.</text><text x=\"21\" y=\"88\" fill=\"#bee8e1\" font-family=\"monospace\" font-size=\"17\">repeat.</text></g></g>\n"
   }
 ];
 const storyDetails={
@@ -258,14 +258,9 @@ const storyDetails={
     "body": "<p>At Wipro, working with Optus, I focus on secrets migration, application onboarding and repeatable integration patterns.</p><p>The work brings together technical implementation, delivery coordination and collaboration with application teams to help secure approaches become part of everyday delivery.</p>"
   },
   "now": {
-    "label": "PLATFORM ENGINEERING · CONTINUING PRACTICE",
-    "title": "Technical depth, with a wider perspective.",
-    "body": "<p>My focus is HashiCorp Vault and the surrounding platform: cloud integration, workload identity, infrastructure as code and automation.</p><p>I’m also exploring practical AI proofs of concept for service desk triage and onboarding support.</p>"
-  },
-  "ai": {
-    "label": "EXPLORING · AI",
-    "title": "What if the first step was easier?",
-    "body": "<p>I’ve explored AI proofs of concept for service desk triage and onboarding support.</p><p>I’m interested in turning a loosely described issue into a useful starting point: extracting the right details, suggesting troubleshooting steps and helping route it.</p>"
+    "label": "NOW · A CONTINUING PRACTICE",
+    "title": "Deepening the craft. Building what comes next.",
+    "body": "<p>I continue to deepen my expertise in platform engineering, with a focus on secure, reliable foundations and repeatable automation.</p><p>My next chapter is about refining the craft and building platform capabilities that teams can confidently adopt and operate.</p>"
   },
   "learning": {
     "label": "A WORK IN PROGRESS",
@@ -283,9 +278,9 @@ const storyDetails={
     "body": "<p>HashiCorp Vault is at the centre of my practice: workload authentication, static and dynamic secrets, Vault Agent and application integration.</p><p>AWS, Kubernetes, Terraform and engineering automation provide the surrounding platform context. The full toolbox below brings those capabilities together.</p>"
   },
   "how": {
-    "label": "YOUR STORY CONTROLS",
-    "title": "Explore at your own pace.",
-    "body": "<p>The road carries on through every chapter. The page moves gently on its own; you can scroll to take your own pace at any time.</p><p>Hover over an illustrated object to linger and read a little more. On a phone, tap an object to show its note. Move away or close the note to continue.</p><p>The automatic journey control lets you pause the camera. Use Tab to reach objects and Escape to close a note.</p>"
+    "label": "EXPLORE THE STORY",
+    "title": "A continuous journey, at your pace.",
+    "body": "<p>The scenes move gently on their own. Scroll or use the year navigation to take your own pace.</p><p>Hover over an illustrated object for a subtle response, then click or tap to read more. Close the detail panel to return to the same place in the story.</p>"
   },
   "about": {
     "label": "ABOUT THIS STORY",

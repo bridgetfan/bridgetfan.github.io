@@ -47,6 +47,3 @@ html.auto-playing{overflow-anchor:none}
 @media (max-width:760px) {
   .site-header, .year-rail { backdrop-filter:none; background:#070d18; }
 }
-
-/* Direct vertical reading, with browser-managed horizontal pan and pinch zoom. */
-main.touch-reading { touch-action: pan-x pinch-zoom; }

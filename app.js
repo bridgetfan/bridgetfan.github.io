@@ -47,11 +47,12 @@ const storySurface=document.querySelector('main');
 const yearRail=document.querySelector('.year-rail');
 let active=-1,renderPending=false,autoEnabled=!reduced.matches,autoComplete=false;
 let hovering=false,modalOpen=false,lastStatus='',interactionTarget=null,lastOpener=null,endOfStory=0;
-let autoMotion=null,autoDistance=0,autoDuration=0,autoDelay=0,railSlot=null,railStart=0;
+let pendingAutoStart=0;
+let autoMotion=null,autoDistance=0,autoDuration=0,railSlot=null,railStart=0;
 let layout=null;
 function motionOffset(){
   if(!autoMotion)return 0;
-  return autoDistance*clamp(((Number(autoMotion.currentTime)||0)-autoDelay)/autoDuration,0,1);
+  return autoDistance*clamp((Number(autoMotion.currentTime)||0)/autoDuration,0,1);
 }
 function readingPosition(){return scrollY+motionOffset();}
 function measureLayout(position){
@@ -109,7 +110,14 @@ function settleMotion(){
   window.scrollTo({top:position,behavior:'instant'});
 }
 function startMotion(delay=0){
+  clearTimeout(pendingAutoStart);
+  pendingAutoStart=0;
   if(autoMotion||!autoEnabled||reduced.matches||modalOpen||document.hidden)return;
+  if(delay>0){
+    // Leave the document in its natural position until the film actually starts.
+    pendingAutoStart=setTimeout(()=>startMotion(),delay);
+    return;
+  }
   render();autoDistance=Math.max(0,endOfStory-scrollY);
   if(autoDistance<1){autoEnabled=false;autoComplete=true;updateStatus();return;}
   const railRect=yearRail.getBoundingClientRect();
@@ -117,22 +125,34 @@ function startMotion(delay=0){
   railSlot=document.createElement('div');railSlot.className='year-rail-slot';railSlot.style.height=railRect.height+'px';
   yearRail.before(railSlot);document.body.append(yearRail);
   document.documentElement.classList.add('auto-playing');
-  autoDuration=autoDistance/(innerWidth<=760?26:30)*1000;autoDelay=delay;
+  autoDuration=autoDistance/(innerWidth<=760?26:30)*1000;
   // The browser compositor moves fractional pixels. No per-frame scrollTo loop.
-  const motion=storySurface.animate([{transform:'translate3d(0,0,0)'},{transform:`translate3d(0,-${autoDistance}px,0)`}],{duration:autoDuration,delay,easing:'linear',fill:'forwards'});
+  const motion=storySurface.animate([{transform:'translate3d(0,0,0)'},{transform:`translate3d(0,-${autoDistance}px,0)`}],{duration:autoDuration,easing:'linear',fill:'forwards'});
   autoMotion=motion;
   requestAnimationFrame(() => tick(motion));
   motion.onfinish=()=>{if(autoMotion!==motion)return;settleMotion();autoEnabled=false;autoComplete=true;render();updateStatus();};
   render();updateStatus();
 }
 function pauseForInput(){
+  clearTimeout(pendingAutoStart);pendingAutoStart=0;
   settleMotion();autoEnabled=false;autoComplete=false;updateStatus();scheduleRender();
 }
 installReadingInput(() => {
   if (autoEnabled && !modalOpen) pauseForInput();
 });
 addEventListener('scroll',scheduleRender,{passive:true});
-addEventListener('resize',()=>{const restart=autoEnabled;settleMotion();layout=null;storyLight.invalidate();render();if(restart)startMotion();});
+let layoutWidth=innerWidth;
+addEventListener('resize',()=>{
+  const widthChanged=innerWidth!==layoutWidth;
+  layoutWidth=innerWidth;
+  // Browser chrome can resize the viewport while a reader is swiping.
+  if(!autoMotion){
+    if(widthChanged)invalidateLayout();
+    else scheduleRender();
+    return;
+  }
+  settleMotion();invalidateLayout();startMotion();
+});
 addEventListener('visibilitychange',()=>{if(autoMotion){if(document.hidden)autoMotion.pause();else autoMotion.play();}else if(!document.hidden&&autoEnabled)startMotion();});
 document.querySelector('#auto-toggle').addEventListener('click',()=>{
   if(reduced.matches)return;

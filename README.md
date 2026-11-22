@@ -8,7 +8,7 @@ The single-page story moves through undergraduate study in Chengdu, interpreting
 
 ## Experience
 
-- Continuous scenes connected by a changing source of light. Autoplay uses one browser-composited animation at a steady reading pace, rather than a per-frame native-scroll loop. Pausing restores the current visual position to native scrolling. Manual reading uses the browser’s native document scroll. Touching or scrolling the story pauses playback until the reader resumes it. Hover feedback never locks playback. Selecting a year pauses autoplay and jumps directly to the selected chapter.
+- Continuous scenes connected by a changing source of light. Autoplay uses one browser-composited animation at a steady reading pace, rather than a per-frame native-scroll loop. Pausing restores the current visual position to native scrolling. On touch screens, vertical drags follow the finger and quick releases have a short, bounded glide. Touching or scrolling the story pauses playback until the reader resumes it. Hover feedback never locks playback. Selecting a year pauses autoplay and jumps directly to the selected chapter.
 - Scroll rendering reuses measured chapter and light-anchor geometry, refreshing it after font loading or viewport changes.
 - Characters contained within each scene, with separate space for the illustrations and text.
 - Hover and keyboard-focus feedback on scene details; click or tap to read more.
@@ -23,7 +23,7 @@ The single-page story moves through undergraduate study in Chengdu, interpreting
 - `index.html`: page structure, illustration symbols and the detail dialog.
 - `scenes.js`: timeline content, illustrated scenes and supporting story details.
 - `app.js`: scene rendering, automatic scrolling, interactions and capability details.
-- `reading-scroll.js`: passive input listeners for pausing playback.
+- `reading-scroll.js`: direct touch dragging, bounded release motion and input handling for pausing playback.
 - `story-light.js`: scene-specific light motifs and the short moving light trail between scenes.
 - `music-player.js`: user-controlled audio playback and the floating player.
 - `inspired.mp3` and `music-credits.txt`: the instrumental recording and attribution.

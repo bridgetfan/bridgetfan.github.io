@@ -47,3 +47,5 @@ html.auto-playing{overflow-anchor:none}
 @media (max-width:760px) {
   .site-header, .year-rail { backdrop-filter:none; background:#070d18; }
 }
+
+.paced-reading :is(main, .site-header, .year-rail) { touch-action: pan-x pinch-zoom; }

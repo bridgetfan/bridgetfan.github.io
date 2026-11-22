@@ -47,13 +47,13 @@ const storySurface=document.querySelector('main');
 const yearRail=document.querySelector('.year-rail');
 let active=-1,renderPending=false,autoEnabled=!reduced.matches,autoComplete=false;
 let hovering=false,modalOpen=false,lastStatus='',interactionTarget=null,lastOpener=null,endOfStory=0;
-let autoMotion=null,autoDistance=0,autoDuration=0,autoDelay=0,railSlot=null,railStart=0;
-let layout=null;
+let autoMotion=null,autoDistance=0,autoDuration=0,autoDelay=0,autoBase=0,railSlot=null,railStart=0;
+let layout=null,readingViewport=null,layoutWidth=innerWidth;
 function motionOffset(){
   if(!autoMotion)return 0;
   return autoDistance*clamp(((Number(autoMotion.currentTime)||0)-autoDelay)/autoDuration,0,1);
 }
-function readingPosition(){return scrollY+motionOffset();}
+function readingPosition(){return (readingViewport?readingViewport.position():scrollY)+motionOffset();}
 function measureLayout(position){
   const j=journey.getBoundingClientRect();
   const expert=document.querySelector('#expertise');
@@ -70,11 +70,13 @@ function measureLayout(position){
       footerRect.top+position-(parseFloat(getComputedStyle(footer).scrollMarginTop)||0)
     ])};
 }
-function invalidateLayout(){layout=null;storyLight.invalidate();scheduleRender();}
+function invalidateLayout(){readingViewport?.refresh();layout=null;storyLight.invalidate();scheduleRender();}
 function getReadingStops(){if(!layout)measureLayout(readingPosition());return layout.stops;}
 function render(){
   renderPending=false;
   const position=readingPosition(),center=innerHeight*.52;
+  if(!autoMotion)readingViewport?.paint(position);
+  readingViewport?.updateRail(position);
   if(!layout)measureLayout(position);
   let closest=0,distance=Infinity;
   layout.records.forEach(({top,height},i)=>{const d=Math.abs(top-position+height/2-center);if(d<distance){distance=d;closest=i;}});
@@ -88,13 +90,13 @@ function render(){
   const top=layout.journeyTop-position;
   document.querySelector('#progress-line').style.transform=`scaleX(${clamp((innerHeight*.5-top)/layout.journeyHeight,0,1)})`;
   document.documentElement.classList.toggle('viewing-expertise',layout.expertTop-position<160);
-  document.documentElement.classList.toggle('auto-rail-visible',!!autoMotion&&position>=railStart-layout.header);
+  document.documentElement.classList.toggle('auto-rail-visible',!!autoMotion&&!readingViewport.enhanced&&position>=railStart-layout.header);
   endOfStory=layout.expertTop-(innerWidth<=760?68:84);
   storyLight.update({top,left:layout.journeyLeft,bottom:top+layout.journeyHeight});
 }
 function scheduleRender(){if(!renderPending){renderPending=true;requestAnimationFrame(render);}}
 function updateStatus(){
-  const atEnd=autoComplete||(!autoEnabled&&endOfStory>0&&scrollY>=endOfStory-4);
+  const atEnd=autoComplete||(!autoEnabled&&endOfStory>0&&readingPosition()>=endOfStory-4);
   const state=atEnd?'Replay story':!autoEnabled?'Your pace':'Auto journey';
   const playing=autoEnabled&&!autoComplete;
   const signature=state+':'+playing;
@@ -112,20 +114,24 @@ function settleMotion(){
   if(railSlot){railSlot.replaceWith(yearRail);railSlot=null;}
   document.documentElement.classList.remove('auto-playing','auto-rail-visible');
   // Restore the exact visual position before native scrolling takes over.
-  window.scrollTo({top:position,behavior:'instant'});
+  readingViewport.scrollTo(position);
 }
 function startMotion(delay=0){
   if(autoMotion||!autoEnabled||reduced.matches||modalOpen||document.hidden)return;
-  render();autoDistance=Math.max(0,endOfStory-scrollY);
+  render();const base=readingViewport.position();autoDistance=Math.max(0,endOfStory-base);
   if(autoDistance<1){autoEnabled=false;autoComplete=true;updateStatus();return;}
-  const railRect=yearRail.getBoundingClientRect();
-  railStart=railRect.top+scrollY;
-  railSlot=document.createElement('div');railSlot.className='year-rail-slot';railSlot.style.height=railRect.height+'px';
-  yearRail.before(railSlot);document.body.append(yearRail);
+  if(!readingViewport.enhanced){
+    const railRect=yearRail.getBoundingClientRect();
+    railStart=railRect.top+scrollY;
+    railSlot=document.createElement('div');railSlot.className='year-rail-slot';railSlot.style.height=railRect.height+'px';
+    yearRail.before(railSlot);document.body.append(yearRail);
+  }
   document.documentElement.classList.add('auto-playing');
   autoDuration=autoDistance/(innerWidth<=760?26:30)*1000;autoDelay=delay;
   // The browser compositor moves fractional pixels. No per-frame scrollTo loop.
-  const motion=storySurface.animate([{transform:'translate3d(0,0,0)'},{transform:`translate3d(0,-${autoDistance}px,0)`}],{duration:autoDuration,delay,easing:'linear',fill:'forwards'});
+  autoBase=base;
+  const origin=readingViewport.enhanced?base:0;
+  const motion=storySurface.animate([{transform:`translate3d(0,-${origin}px,0)`},{transform:`translate3d(0,-${origin+autoDistance}px,0)`}],{duration:autoDuration,delay,easing:'linear',fill:'forwards'});
   autoMotion=motion;
   motion.onfinish=()=>{if(autoMotion!==motion)return;settleMotion();autoEnabled=false;autoComplete=true;render();updateStatus();};
   render();updateStatus();
@@ -133,22 +139,35 @@ function startMotion(delay=0){
 function pauseForInput(){
   settleMotion();autoEnabled=false;autoComplete=false;updateStatus();scheduleRender();
 }
-installNativeReadingInput({onInput:pauseForInput,isBlocked:()=>modalOpen,getStops:getReadingStops});
-addEventListener('scroll',scheduleRender,{passive:true});
-addEventListener('resize',()=>{const restart=autoEnabled;settleMotion();layout=null;storyLight.invalidate();render();if(restart)startMotion();});
+readingViewport=installReadingViewport({surface:storySurface,yearRail,onInput:pauseForInput,isBlocked:()=>modalOpen,reduced});
+addEventListener('scroll',()=>{if(autoMotion&&Math.abs(readingViewport.position()-autoBase)>1)pauseForInput();scheduleRender();},{passive:true});
+addEventListener('resize',()=>{
+  const restart=autoEnabled,previous=readingPosition(),widthChanged=innerWidth!==layoutWidth;
+  const anchor=widthChanged&&layout?.records.find(r=>previous>=r.top&&previous<r.top+r.height);
+  const fraction=anchor?(previous-anchor.top)/anchor.height:0;
+  settleMotion();readingViewport.resize();layout=null;storyLight.invalidate();
+  if(anchor){measureLayout(readingViewport.position());const next=layout.records.find(r=>r.chapter===anchor.chapter);readingViewport.scrollTo(next.top+fraction*next.height);}
+  layoutWidth=innerWidth;render();if(restart)startMotion();
+});
 addEventListener('visibilitychange',()=>{if(autoMotion){if(document.hidden)autoMotion.pause();else autoMotion.play();}else if(!document.hidden&&autoEnabled)startMotion();});
 document.querySelector('#auto-toggle').addEventListener('click',()=>{
   if(reduced.matches)return;
   if(autoEnabled)pauseForInput();
   else {
-    if(autoComplete||scrollY>=endOfStory-4){window.scrollTo({top:0,behavior:'instant'});autoComplete=false;}
+    if(autoComplete||readingPosition()>=endOfStory-4){readingViewport.scrollTo(0);autoComplete=false;}
     autoEnabled=true;startMotion(500);updateStatus();
   }
 });
+function scrollToTarget(target){
+  readingViewport.paint(readingPosition());
+  const margin=parseFloat(getComputedStyle(target).scrollMarginTop)||0;
+  const position=target.id==='top'?0:target.getBoundingClientRect().top+readingPosition()-margin;
+  readingViewport.scrollTo(position);scheduleRender();
+}
 document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',event=>{
   const href=link.getAttribute('href'),target=document.getElementById(href.slice(1));if(!target)return;
   event.preventDefault();pauseForInput();clearInteraction();
-  target.scrollIntoView({behavior:'instant',block:'start'});
+  scrollToTarget(target);
   history.replaceState(null,'',href);scheduleRender();
 }));
 function tick(){if(autoMotion)scheduleRender();requestAnimationFrame(tick);}
@@ -166,7 +185,7 @@ function clearInteraction(){
 }
 document.addEventListener('pointerover',event=>{if(!fineHover.matches||event.pointerType==='touch'||modalOpen)return;const target=event.target.closest('[data-detail]');if(target)setInteraction(target);});
 document.addEventListener('pointerout',event=>{const target=event.target.closest('[data-detail]');if(target&&!target.contains(event.relatedTarget)&&!modalOpen)clearInteraction();});
-document.addEventListener('focusin',event=>{if(modalOpen)return;const target=event.target.closest('[data-detail],[data-panel]');if(target){if(target.matches(':focus-visible'))pauseForInput();hovering=true;if(target.dataset.detail)setInteraction(target);updateStatus();}});
+document.addEventListener('focusin',event=>{if(modalOpen)return;const target=event.target.closest('[data-detail],[data-panel]');if(target){if(target.matches(':focus-visible')){pauseForInput();if(readingViewport.enhanced){const box=target.getBoundingClientRect();if(box.top<150||box.bottom>innerHeight)scrollToTarget(target);}}hovering=true;if(target.dataset.detail)setInteraction(target);updateStatus();}});
 document.addEventListener('focusout',event=>{if(event.target.closest('[data-detail],[data-panel]')&&!modalOpen)clearInteraction();});
 function openDetail(key,opener){
   const detail=panels[key]||storyDetails[key];if(!detail)return;
@@ -199,7 +218,7 @@ dialog.addEventListener('close',()=>{
   if(lastOpener?.isConnected)lastOpener.focus({preventScroll:true});
   modalOpen=false;hovering=false;invalidateLayout();updateStatus();
 });
-reduced.addEventListener('change',()=>{pauseForInput();scheduleRender();});
+reduced.addEventListener('change',()=>{pauseForInput();readingViewport.resize();invalidateLayout();});
 render();document.fonts?.ready.then(invalidateLayout);addEventListener('load',invalidateLayout);
-if(location.hash){requestAnimationFrame(()=>{const target=document.getElementById(location.hash.slice(1));if(target){target.scrollIntoView({behavior:'instant'});pauseForInput();}});}
+if(location.hash){requestAnimationFrame(()=>{const target=document.getElementById(location.hash.slice(1));if(target){pauseForInput();scrollToTarget(target);}});}
 updateStatus();if(!location.hash)startMotion(1500);requestAnimationFrame(tick);
